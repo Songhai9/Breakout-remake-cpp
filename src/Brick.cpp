@@ -1,40 +1,20 @@
 #include "../includes/Brick.hpp"
 
-/**
- * @brief Constructeur de la classe Brick.
- * 
- * @param x Position X de la brique.
- * @param y Position Y de la brique.
- * @param width Largeur de la brique.
- * @param height Hauteur de la brique.
- * @param isActive État initial de la brique (active ou non).
- */
-Brick::Brick(int x, int y, int width, int height, bool isActive) {
-    rect.x = x;
-    rect.y = y;
-    rect.w = width;
-    rect.h = height;
-    active = isActive;
-}
+Brick::Brick(SDL_Renderer* renderer, int x, int y, int w, int h, int hitsRequired)
+    : renderer(renderer), rect{x, y, w, h}, hitsLeft(hitsRequired) {}
 
-/**
- * @brief Affiche la brique à l'écran si elle est active.
- * 
- * @param renderer Rendu SDL pour dessiner la brique.
- */
-void Brick::render(SDL_Renderer* renderer) {
-    if (!active) return;
-
-    SDL_SetRenderDrawColor(renderer, 255, 165, 0, 255); // Couleur orange pour la brique
+void Brick::render() {
+    int r = 255;  // Red value for orange
+    int g = 50 + 70 * (hitsLeft - 1);  // Increasing green makes it lighter
+    int b = 0;  // Blue value stays at 0 for orange color
+    SDL_SetRenderDrawColor(renderer, r, g, b, 255); // Shades of orange depending on hitsLeft
     SDL_RenderFillRect(renderer, &rect);
 }
 
-/**
- * @brief Retourne l'état de la brique.
- * 
- * @return true Si la brique est active.
- * @return false Si la brique est détruite.
- */
-bool Brick::isActive() const {
-    return active;
+bool Brick::checkCollision(const SDL_Rect& ballRect) {
+    if (SDL_HasIntersection(&ballRect, &rect)) {
+        hitsLeft--;
+        return hitsLeft <= 0;
+    }
+    return false;
 }

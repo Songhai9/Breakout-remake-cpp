@@ -3,18 +3,16 @@
 
 #include <SDL2/SDL.h>
 
-/**
- * @brief Classe représentant une brique dans le jeu.
- */
 class Brick {
 public:
-    Brick(int x, int y, int width, int height, bool isActive);
-    void render(SDL_Renderer* renderer);
-    bool isActive() const;
+    Brick(SDL_Renderer* renderer, int x, int y, int w, int h, int hitsRequired);
+    void render();
+    bool checkCollision(const SDL_Rect& ballRect);
 
 private:
-    SDL_Rect rect;   ///< Rectangle définissant la position et la taille de la brique.
-    bool active;     ///< Indique si la brique est active (non détruite).
+    SDL_Renderer* renderer;
+    SDL_Rect rect;
+    int hitsLeft;
 };
 
-#endif // BRICK_H
+#endif

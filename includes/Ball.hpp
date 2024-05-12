@@ -3,19 +3,19 @@
 
 #include <SDL2/SDL.h>
 
-/**
- * @brief Classe représentant la balle dans le jeu.
- */
 class Ball {
 public:
-    Ball(int x, int y, int size, float velX, float velY);
+    Ball(SDL_Renderer* renderer, int initX, int initY);
     void update();
-    void render(SDL_Renderer* renderer);
+    void render();
+    void reverseY();
+    const SDL_Rect& getRect() const;
 
 private:
-    SDL_Rect rect;   ///< Rectangle définissant la position et la taille de la balle.
-    float velocityX; ///< Vitesse horizontale de la balle.
-    float velocityY; ///< Vitesse verticale de la balle.
+    SDL_Renderer* renderer;
+    int x, y;
+    int velocityX, velocityY;
+    int radius;
 };
 
-#endif // BALL_H
+#endif
