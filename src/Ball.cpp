@@ -1,4 +1,5 @@
 #include "../includes/Ball.hpp"
+#include <algorithm>
 
 Ball::Ball(SDL_Renderer* renderer, int initX, int initY)
     : renderer(renderer), x(initX), y(initY), velocityX(5), velocityY(-5), radius(10) {}
@@ -33,6 +34,16 @@ const SDL_Rect& Ball::getRect() const {
     return r;
 }
 
-void Ball::setVelocityX(int vx) {
-    velocityX = vx;
+void Ball::adjustOnCollisionWithPaddle(const SDL_Rect& paddleRect) {
+    reverseY();
+    y = paddleRect.y - radius * 2;  // Position the ball above the paddle after collision
+}
+
+void Ball::adjustOnCollisionWithBrick(const SDL_Rect& brickRect) {
+    reverseY();
+    if (velocityY > 0) {  // Ball moving downwards
+        y = brickRect.y + brickRect.h + radius;  // Position ball below the brick
+    } else {  // Ball moving upwards
+        y = brickRect.y - radius * 2;  // Position ball above the brick
+    }
 }

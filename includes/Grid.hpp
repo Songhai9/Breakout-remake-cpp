@@ -11,7 +11,7 @@ public:
     Grid(SDL_Renderer* renderer, int centerX, int centerY);
     void setupGrid();
     void render();
-    bool checkCollision(const SDL_Rect& ballRect);
+    bool checkCollision(const SDL_Rect& ballRect, SDL_Rect* collidedBrickRect);
 
 private:
     SDL_Renderer* renderer;

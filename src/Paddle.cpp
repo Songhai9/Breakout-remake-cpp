@@ -1,4 +1,4 @@
-#include "Paddle.hpp"
+#include "../includes/Paddle.hpp"
 
 Paddle::Paddle(SDL_Renderer* renderer, int windowWidth, int windowHeight)
     : renderer(renderer), windowWidth(windowWidth), speed(10) {

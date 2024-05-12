@@ -11,8 +11,8 @@ public:
     void reverseY();
     void reverseX();
     const SDL_Rect& getRect() const;
-    void setVelocityX(int vx);
-
+    void adjustOnCollisionWithPaddle(const SDL_Rect& paddleRect);
+    void adjustOnCollisionWithBrick(const SDL_Rect& brickRect);
 
 private:
     SDL_Renderer* renderer;

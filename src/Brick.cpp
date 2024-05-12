@@ -18,3 +18,7 @@ bool Brick::checkCollision(const SDL_Rect& ballRect) {
     }
     return false;
 }
+
+const SDL_Rect& Brick::getRect() const {
+    return rect;
+}
