@@ -23,7 +23,7 @@ void Game::init() {
         return;
     }
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); // Black background
-    paddle = std::make_unique<Paddle>(renderer, 400, 300, 150);
+    paddle = std::make_unique<Paddle>(renderer, 800, 600);
     ball = std::make_unique<Ball>(renderer, 400, 290);
     grid = std::make_unique<Grid>(renderer, 400, 300);
     grid->setupGrid();
@@ -54,10 +54,28 @@ void Game::run() {
 void Game::update() {
     paddle->update();
     ball->update();
+
+    // Check for collision with the grid (bricks)
     if (grid->checkCollision(ball->getRect())) {
         ball->reverseY();
     }
+
+    // Collision detection between the ball and the paddle
+    SDL_Rect ballRect = ball->getRect();
+    SDL_Rect paddleRect = paddle->getRect();
+    if (SDL_HasIntersection(&ballRect, &paddleRect)) {
+        ball->reverseY();  // Reverse the vertical velocity of the ball
+
+        // Advanced: Adjust angle based on where it hits the paddle
+        int paddleCenter = paddleRect.x + paddleRect.w / 2;
+        int ballCenter = ballRect.x + ballRect.w / 2;
+        int distanceFromCenter = ballCenter - paddleCenter;
+
+        // Change the horizontal velocity based on where the ball hits the paddle
+        ball->setVelocityX(distanceFromCenter / 10); // Adjust this factor based on your game's design
+    }
 }
+
 
 void Game::handleEvents() {
     SDL_Event event;

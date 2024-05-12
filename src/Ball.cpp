@@ -11,13 +11,17 @@ void Ball::update() {
 }
 
 void Ball::render() {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White color for the ball
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_Rect ballRect = {x - radius, y - radius, 2 * radius, 2 * radius};
     SDL_RenderFillRect(renderer, &ballRect);
 }
 
 void Ball::reverseY() {
     velocityY = -velocityY;
+}
+
+void Ball::reverseX() {
+    velocityX = -velocityX;
 }
 
 const SDL_Rect& Ball::getRect() const {
@@ -27,4 +31,8 @@ const SDL_Rect& Ball::getRect() const {
     r.w = 2 * radius;
     r.h = 2 * radius;
     return r;
+}
+
+void Ball::setVelocityX(int vx) {
+    velocityX = vx;
 }

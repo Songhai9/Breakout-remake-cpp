@@ -1,41 +1,41 @@
-#include "../includes/Paddle.hpp"
-#include <cmath>
+#include "Paddle.hpp"
 
-Paddle::Paddle(SDL_Renderer* renderer, int centerX, int centerY, int radius)
-    : renderer(renderer), centerX(centerX), centerY(centerY), radius(radius), angle(0.0) {
+Paddle::Paddle(SDL_Renderer* renderer, int windowWidth, int windowHeight)
+    : renderer(renderer), windowWidth(windowWidth), speed(10) {
     rect.w = 100;  // Paddle width
     rect.h = 20;   // Paddle height
-    calculatePosition();
-}
-
-void Paddle::setAngle(float angleDelta) {
-    angle += angleDelta;
-    calculatePosition();
-}
-
-void Paddle::calculatePosition() {
-    rect.x = centerX + static_cast<int>(radius * cos(angle)) - rect.w / 2;
-    rect.y = centerY + static_cast<int>(radius * sin(angle)) - rect.h / 2;
+    rect.x = (windowWidth - rect.w) / 2;  // Center paddle initially
+    rect.y = windowHeight - rect.h - 30;  // Position paddle at the bottom
 }
 
 void Paddle::update() {
-    // Update logic for paddle, if any
+    // Movement logic is handled in handleEvent
 }
 
 void Paddle::handleEvent(SDL_Event& event) {
     if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
             case SDLK_LEFT:
-                setAngle(-0.1);  // Rotate left
+                rect.x -= speed;
+                if (rect.x < 0) {
+                    rect.x = 0;  // Prevent moving out of the window on the left
+                }
                 break;
             case SDLK_RIGHT:
-                setAngle(0.1);   // Rotate right
+                rect.x += speed;
+                if (rect.x > windowWidth - rect.w) {
+                    rect.x = windowWidth - rect.w;  // Prevent moving out of the window on the right
+                }
                 break;
         }
     }
 }
 
 void Paddle::render() {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White paddle
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255); // White color for the paddle
     SDL_RenderFillRect(renderer, &rect);
+}
+
+const SDL_Rect& Paddle::getRect() const {
+    return rect;
 }

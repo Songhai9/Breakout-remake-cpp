@@ -9,7 +9,10 @@ public:
     void update();
     void render();
     void reverseY();
+    void reverseX();
     const SDL_Rect& getRect() const;
+    void setVelocityX(int vx);
+
 
 private:
     SDL_Renderer* renderer;
