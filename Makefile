@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Werror -Wall -Iincludes -I/usr/include/SDL2
+CFLAGS = -Werror -Wall -Iincludes -I/usr/include/SDL2/
 LFLAGS = -lSDL2
 OBJDIR = obj/
 SRCDIR = src/
@@ -12,7 +12,7 @@ all: $(BINDIR)$(TARGET)
 
 $(BINDIR)$(TARGET): $(OBJECTS)
 	@mkdir -p $(BINDIR)
-	$(CC) $^ -o $@ $(LFLAGS)
+	$(CC) $^ -o $@ $(LFLAGS) -lSDL2 -lSDL2_ttf
 
 $(OBJDIR)%.o: $(SRCDIR)%.cpp
 	@mkdir -p $(OBJDIR)

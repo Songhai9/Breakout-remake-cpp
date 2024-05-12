@@ -39,3 +39,10 @@
 -  Add Sound Effects and Music [x]
 -  High Score Leaderboard [x]
 -  Configurable Settings [x]
+
+
+✅ = Tested and working
+
+🟨 = Not advanced tests
+
+🟥 = Tested, not working
