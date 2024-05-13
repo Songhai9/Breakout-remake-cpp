@@ -1,19 +1,14 @@
 # Casse Brique Game Development Progress Tracker
 
-## Phase 1: Setting Up the Development Environment
--  Install Development Tools [x]
--  Create Basic Project Structure [x]
--  Setup Version Control [x]
-
 ## Phase 2: Basic Game Setup
--  Initialize SDL [x]
--  Basic Rendering Loop [x]
+-  Initialize SDL [✅]
+-  Basic Rendering Loop [✅]
 
 ## Phase 3: Core Game Components
--  Platform Object [x]
--  Ball Mechanics [x]
+-  Platform Object [✅]
+-  Ball Mechanics [✅]
 -  Brick Objects [x]
--  Collision Detection [x]
+-  Collision Detection [✅]
 
 ## Phase 4: Game Logic and Levels
 -  Level Loader [x]
