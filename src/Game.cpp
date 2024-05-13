@@ -75,6 +75,7 @@ void Game::update()
     if (grid->checkCollision(ballRect, &brickRect))
     {
         ball->adjustOnCollisionWithBrick(brickRect);
+        score += 10; // Increase score for hitting and destroying a brick
     }
 
     SDL_Rect paddleRect = paddle->getRect();
@@ -88,6 +89,7 @@ void Game::update()
         if (!ballLost)
         {
             lives--;
+            score -= 5; // Decrease score for losing a ball
             ballLost = true;
         }
     }
@@ -119,7 +121,11 @@ void Game::render()
     grid->render();
     paddle->render();
     ball->render();
+
+    // Render lives and score text
     renderText("Lives: " + std::to_string(lives), 650, 580, {255, 255, 255, 255});
+    renderText("Score: " + std::to_string(score), 50, 580, {255, 255, 255, 255});
+
     SDL_RenderPresent(renderer);
 }
 

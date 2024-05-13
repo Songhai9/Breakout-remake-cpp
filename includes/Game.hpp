@@ -23,8 +23,9 @@ private:
     std::unique_ptr<Paddle> paddle;
     std::unique_ptr<Ball> ball;
     std::unique_ptr<Grid> grid;
-    int lives;     
-    bool ballLost; 
+    int lives;
+    int score = 0;
+    bool ballLost;
 
     void init();
     void update();
