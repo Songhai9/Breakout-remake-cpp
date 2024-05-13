@@ -82,6 +82,33 @@ void Game::update()
     if (SDL_HasIntersection(&ballRect, &paddleRect))
     {
         ball->adjustOnCollisionWithPaddle(paddleRect);
+// Include Bonus.hpp at the top
+#include "../includes/Bonus.hpp"
+
+// Define a vector to hold active bonuses
+std::vector<Bonus> bonuses;
+
+// Modify the update method to check for bonus collection
+void Game::update() {
+    paddle->update();
+    ball->update();
+
+    // Existing collision handling...
+
+    // Handle bonuses
+    for (auto& bonus : bonuses) {
+        bonus.update();
+        if (SDL_HasIntersection(&paddle->getRect(), &bonus.rect)) {
+            bonus.activate();
+        }
+    }
+    bonuses.erase(std::remove_if(bonuses.begin(), bonuses.end(), [](const Bonus& b) { return !b.active; }), bonuses.end());
+}
+
+// Sample effect function for multi-ball bonus
+void spawnExtraBall() {
+    balls.push_back(std::make_unique<Ball>(renderer, ball->getRect().x, ball->getRect().y)); // Assuming a Ball constructor exists
+}
     }
 
     if (ballRect.y + ballRect.h >= 600)
