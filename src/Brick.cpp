@@ -14,40 +14,30 @@ void Brick::setColor()
         color = {255, 0, 0, 255}; // Red
         break;
     case 2:
-        color = {255, 165, 0, 255}; // Orange
-        break;
-    case 1:
-        color = {255, 255, 0, 255}; // Yellow
-        break;
-    default:
-        color = {255, 255, 255, 255}; // Default to white (or could be invisible/transparent)
-    }
-}
+#include <cstdlib> // For rand() and srand()
+#include <ctime> // For time()
 
-void Brick::render()
-{
-    if (!destroyed)
-    {
-        SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, 255);
-        SDL_RenderFillRect(renderer, &rect);
-    }
-}
+// In the Brick constructor
+srand(time(NULL)); // Initialize random seed
 
-bool Brick::checkCollision(const SDL_Rect &ballRect)
-{
-    if (!destroyed && SDL_HasIntersection(&ballRect, &rect))
-    {
+// Modify checkCollision method
+bool Brick::checkCollision(const SDL_Rect &ballRect) {
+    if (!destroyed && SDL_HasIntersection(&ballRect, &rect)) {
         hitsLeft--;
-        if (hitsLeft <= 0)
-        {
-            destroyed = true; // Brick is destroyed when hitsLeft is 0 or less
+        if (hitsLeft <= 0) {
+            destroyed = true;
+            // 10% chance to spawn a bonus
+            if (rand() % 10 == 0) {
+                spawnBonus(rect.x, rect.y); // Function to spawn a bonus
+            }
+        } else {
+            setColor();
         }
-        else
-        {
-            setColor(); // Update the color based on the new hitsLeft value
-        }
-        return true; // Return true if collision occurs, regardless of destruction
+        return true;
     }
+    return false;
+}
+
     return false; // Return false if no collision occurs
 }
 
