@@ -40,15 +40,15 @@ bool Brick::checkCollision(const SDL_Rect &ballRect)
         hitsLeft--;
         if (hitsLeft <= 0)
         {
-            destroyed = true;
+            destroyed = true; // Brick is destroyed when hitsLeft is 0 or less
         }
         else
         {
-            setColor();
+            setColor(); // Update the color based on the new hitsLeft value
         }
-        return destroyed;
+        return true; // Return true if collision occurs, regardless of destruction
     }
-    return false;
+    return false; // Return false if no collision occurs
 }
 
 const SDL_Rect &Brick::getRect() const

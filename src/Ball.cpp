@@ -44,18 +44,18 @@ const SDL_Rect &Ball::getRect() const
 void Ball::adjustOnCollisionWithPaddle(const SDL_Rect &paddleRect)
 {
     reverseY();
-    y = paddleRect.y - radius * 2; 
+    y = paddleRect.y - radius * 2;
 }
 
 void Ball::adjustOnCollisionWithBrick(const SDL_Rect &brickRect)
 {
     reverseY();
     if (velocityY > 0)
-    {                                           
-        y = brickRect.y + brickRect.h + radius; 
+    {
+        y = brickRect.y + brickRect.h + radius;
     }
     else
-    {                                 
-        y = brickRect.y - radius * 2; 
+    {
+        y = brickRect.y - radius * 2;
     }
 }

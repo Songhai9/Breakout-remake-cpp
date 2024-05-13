@@ -1,13 +1,16 @@
 #include "../includes/Game.hpp"
 #include <iostream>
 
-Game::Game() : isRunning(false), window(nullptr), renderer(nullptr) {}
+// Constructor initializing the game state and creating necessary objects
+Game::Game() : isRunning(false), window(nullptr), renderer(nullptr), lives(3), ballLost(false) {}
 
+// Destructor to clean up resources
 Game::~Game()
 {
     clean();
 }
 
+// Initialize SDL, create the game window, renderer, and set up game objects
 void Game::init()
 {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
@@ -33,8 +36,10 @@ void Game::init()
     grid = std::make_unique<Grid>(renderer, 400, 300);
     grid->setupGrid();
     isRunning = true;
+    TTF_Init(); // Initialize the TTF engine for text rendering
 }
 
+// The main game loop handling events, updating game logic, and rendering
 void Game::run()
 {
     init();
@@ -59,13 +64,14 @@ void Game::run()
     }
 }
 
+// Update game objects; check for collisions and game state changes
 void Game::update()
 {
     paddle->update();
     ball->update();
 
     SDL_Rect ballRect = ball->getRect();
-    SDL_Rect brickRect; 
+    SDL_Rect brickRect;
     if (grid->checkCollision(ballRect, &brickRect))
     {
         ball->adjustOnCollisionWithBrick(brickRect);
@@ -76,8 +82,22 @@ void Game::update()
     {
         ball->adjustOnCollisionWithPaddle(paddleRect);
     }
+
+    if (ballRect.y + ballRect.h >= 600)
+    {
+        if (!ballLost)
+        {
+            lives--;
+            ballLost = true;
+        }
+    }
+    else
+    {
+        ballLost = false;
+    }
 }
 
+// Handle user input and system events
 void Game::handleEvents()
 {
     SDL_Event event;
@@ -91,6 +111,7 @@ void Game::handleEvents()
     }
 }
 
+// Render all game components on the screen
 void Game::render()
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -98,7 +119,26 @@ void Game::render()
     grid->render();
     paddle->render();
     ball->render();
+    renderText("Lives: " + std::to_string(lives), 650, 580, {255, 255, 255, 255});
     SDL_RenderPresent(renderer);
+}
+
+// Render text to the screen
+void Game::renderText(const std::string &text, int x, int y, SDL_Color color)
+{
+    TTF_Font *font = TTF_OpenFont("assets/font.ttf", 12); // Specify your font path and size
+    if (!font)
+    {
+        std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
+        return;
+    }
+    SDL_Surface *surface = TTF_RenderText_Solid(font, text.c_str(), color);
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_Rect textRect = {x, y, surface->w, surface->h};
+    SDL_RenderCopy(renderer, texture, NULL, &textRect);
+    SDL_FreeSurface(surface);
+    SDL_DestroyTexture(texture);
+    TTF_CloseFont(font);
 }
 
 void Game::clean()
