@@ -3,16 +3,17 @@
 
 #include <SDL2/SDL.h>
 
-class Paddle {
+class Paddle
+{
 public:
-    Paddle(SDL_Renderer* renderer, int windowWidth, int windowHeight);
+    Paddle(SDL_Renderer *renderer, int windowWidth, int windowHeight);
     void update();
     void render();
-    void handleEvent(SDL_Event& event);
-    const SDL_Rect& getRect() const;
+    void handleEvent(SDL_Event &event);
+    const SDL_Rect &getRect() const;
 
 private:
-    SDL_Renderer* renderer;
+    SDL_Renderer *renderer;
     SDL_Rect rect;
     int windowWidth;
     int speed;
