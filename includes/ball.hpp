@@ -2,24 +2,27 @@
 #define BALL_HPP
 
 #include <SDL2/SDL.h>
+#include <vector>
+#include "brick.hpp"
 
 class Ball
 {
 public:
-    Ball(SDL_Renderer *renderer, int initX, int initY);
-    void update();
-    void render();
-    void reverseY();
-    void reverseX();
-    const SDL_Rect &getRect() const;
-    void adjustOnCollisionWithPaddle(const SDL_Rect &paddleRect);
-    void adjustOnCollisionWithBrick(const SDL_Rect &brickRect);
+    Ball(int screenWidth, int screenHeight);
+    void move(float deltaTime);
+    void render(SDL_Renderer *renderer) const;
+    void checkCollisionWithPlatform(const SDL_Rect &platformRect);
+    void checkCollisionWithBricks(std::vector<Brick> &bricks);
+    float getY() const;
+    int getRadius() const; // Assurez-vous que c'est public
 
 private:
-    SDL_Renderer *renderer;
-    int x, y;
-    int velocityX, velocityY;
+    int screenWidth;
+    int screenHeight;
+    float x, y;
+    float dx, dy;
     int radius;
+    SDL_Rect rect;
 };
 
 #endif

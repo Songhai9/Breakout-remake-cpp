@@ -13,7 +13,6 @@ DOC_DIR = doc
 TARGET = $(BIN_DIR)/CasseBrique
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
 OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
-DOXYFILE = Doxyfile
 
 # Targets
 all: $(TARGET) doc
@@ -26,9 +25,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	mkdir -p $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Documentation target
-doc:
-	@if [ -f $(DOXYFILE) ]; then doxygen $(DOXYFILE); else echo "Doxyfile not found."; fi
 
 # Clean target
 clean:
