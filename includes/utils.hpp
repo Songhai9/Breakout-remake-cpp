@@ -29,6 +29,6 @@ bool checkCollision(const SDL_Rect &a, const SDL_Rect &b);
  * @param renderer Le renderer SDL.
  * @param points Un vecteur de points SDL représentant le polygone.
  */
-void fillPolygon(SDL_Renderer *renderer, const std::vector<SDL_Point> &points);
+void fillPolygon(SDL_Renderer* renderer, const std::vector<SDL_Point>& points);
 
 #endif

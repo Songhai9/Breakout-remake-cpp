@@ -8,6 +8,8 @@ class Brick
 public:
     Brick(int x, int y, int width, int height, int hitPoints);
     void render(SDL_Renderer *renderer) const;
+    void renderHexagonal(SDL_Renderer *renderer) const;
+    void renderTriangular(SDL_Renderer *renderer) const;
     void hit();
     bool isDestroyed() const;
     bool isHit() const;

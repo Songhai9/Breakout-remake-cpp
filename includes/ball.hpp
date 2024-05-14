@@ -8,24 +8,21 @@
 class Ball
 {
 public:
-    Ball(int screen_width, int screen_height);
+    Ball(int screenWidth, int screenHeight);
     void move(float deltaTime);
     void render(SDL_Renderer *renderer) const;
-    void reset();
     void checkCollisionWithPlatform(const SDL_Rect &platformRect);
     void checkCollisionWithBricks(std::vector<Brick> &bricks);
     float getY() const;
-    static const int BALL_SIZE = 15; // Make this public
+    int getRadius() const; // Assurez-vous que c'est public
 
 private:
     int screenWidth;
     int screenHeight;
-    static const int BALL_VEL = 300; // Pixels per second
-
-    float posX, posY;
-    float velX, velY;
-
-    void reflectOnPlatformCollision(const SDL_Rect &platformRect);
+    float x, y;
+    float dx, dy;
+    int radius;
+    SDL_Rect rect;
 };
 
 #endif
