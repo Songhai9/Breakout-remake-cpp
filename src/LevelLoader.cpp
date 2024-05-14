@@ -2,7 +2,7 @@
 #include <fstream>
 #include <iostream>
 
-std::vector<Brick> LevelLoader::loadLevel(const std::string &filePath, GridShape shape, int screenWidth, int screenHeight, int brickWidth, int brickHeight, int spacing)
+std::vector<Brick> LevelLoader::loadLevel(const std::string &filePath, int screenWidth, int screenHeight, int brickWidth, int brickHeight, int spacing)
 {
     std::vector<Brick> bricks;
     std::ifstream file(filePath);
@@ -14,51 +14,18 @@ std::vector<Brick> LevelLoader::loadLevel(const std::string &filePath, GridShape
 
     std::string line;
     int y = spacing; // Start with some spacing from the top
-    int row = 0;
     while (std::getline(file, line))
     {
         int x = spacing; // Start with some spacing from the left
         for (char c : line)
         {
-            int hitPoints = 0;
             if (c == 'X')
             {
-                hitPoints = 1;
-            }
-            else if (c == 'Y')
-            {
-                hitPoints = 2;
-            }
-            else if (c == 'Z')
-            {
-                hitPoints = 3;
-            }
-            if (hitPoints > 0)
-            {
-                if (shape == RECTANGULAR)
-                {
-                    bricks.emplace_back(x, y, brickWidth, brickHeight, hitPoints);
-                }
-                else if (shape == HEXAGONAL)
-                {
-                    if (row % 2 == 0)
-                    {
-                        bricks.emplace_back(x, y, brickWidth, brickHeight, hitPoints);
-                    }
-                    else
-                    {
-                        bricks.emplace_back(x + brickWidth / 2 + spacing / 2, y, brickWidth, brickHeight, hitPoints);
-                    }
-                }
-                else if (shape == TRIANGULAR)
-                {
-                    bricks.emplace_back(x + (row * (brickWidth + spacing) / 2), y, brickWidth, brickHeight, hitPoints);
-                }
+                bricks.emplace_back(x, y, brickWidth, brickHeight, 1); // All bricks have 1 hit point for simplicity
             }
             x += brickWidth + spacing;
         }
         y += brickHeight + spacing;
-        row++;
     }
 
     file.close();

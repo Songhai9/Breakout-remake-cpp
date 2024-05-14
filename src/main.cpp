@@ -7,8 +7,8 @@
 #include <ctime>
 #include "../includes/LevelLoader.hpp"
 #include "../includes/ball.hpp"
-#include "../includes/brick.hpp"
 #include "../includes/platform.hpp"
+#include "../includes/brick.hpp"
 #include "../includes/bonus.hpp"
 #include "../includes/utils.hpp"
 
@@ -25,12 +25,6 @@ enum GameState {
     RUNNING,
     WON,
     LOST
-};
-
-enum BrickShape {
-    RECTANGULAR,
-    TRIANGULAR,
-    HEXAGONAL
 };
 
 bool initSDL(SDL_Window*& window, SDL_Renderer*& renderer, TTF_Font*& font) {
@@ -52,7 +46,7 @@ bool initSDL(SDL_Window*& window, SDL_Renderer*& renderer, TTF_Font*& font) {
         std::cerr << "Renderer could not be created! SDL_Error: " << SDL_GetError() << std::endl;
         return false;
     }
-    font = TTF_OpenFont("assets/font.ttf", 24);
+    font = TTF_OpenFont("arial.ttf", 24);
     if (font == nullptr) {
         std::cerr << "Failed to load font! TTF_Error: " << TTF_GetError() << std::endl;
         return false;
@@ -81,25 +75,21 @@ void renderText(SDL_Renderer* renderer, TTF_Font* font, const std::string& text,
     SDL_DestroyTexture(textTexture);
 }
 
-std::pair<std::string, BrickShape> chooseLevel(SDL_Renderer* renderer, TTF_Font* font) {
+std::string chooseLevel(SDL_Renderer* renderer, TTF_Font* font) {
     bool quit = false;
     SDL_Event e;
     std::vector<std::string> levels = { "levels/level1.txt", "levels/level2.txt", "levels/level3.txt" };
-    BrickShape brickShape = RECTANGULAR;
-    int lineSpacing = 50; // Adjust line spacing as needed
 
     while (!quit) {
         while (SDL_PollEvent(&e) != 0) {
             if (e.type == SDL_QUIT) {
                 quit = true;
-                return { "", RECTANGULAR };
+                return "";
             } else if (e.type == SDL_KEYDOWN) {
                 switch (e.key.keysym.sym) {
-                    case SDLK_1: brickShape = RECTANGULAR; return { levels[0], brickShape };
-                    case SDLK_2: brickShape = RECTANGULAR; return { levels[1], brickShape };
-                    case SDLK_3: brickShape = RECTANGULAR; return { levels[2], brickShape };
-                    case SDLK_4: brickShape = TRIANGULAR; return { levels[0], brickShape };
-                    case SDLK_5: brickShape = HEXAGONAL; return { levels[0], brickShape };
+                    case SDLK_1: return levels[0];
+                    case SDLK_2: return levels[1];
+                    case SDLK_3: return levels[2];
                 }
             }
         }
@@ -107,17 +97,15 @@ std::pair<std::string, BrickShape> chooseLevel(SDL_Renderer* renderer, TTF_Font*
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
 
-        renderText(renderer, font, "Select Level and Brick Shape:", 200, 150);
-        renderText(renderer, font, "1. Level 1 (Rectangular Bricks)", 200, 200);
-        renderText(renderer, font, "2. Level 2 (Rectangular Bricks)", 200, 200 + lineSpacing);
-        renderText(renderer, font, "3. Level 3 (Rectangular Bricks)", 200, 200 + 2 * lineSpacing);
-        renderText(renderer, font, "4. Level 1 (Triangular Bricks)", 200, 200 + 3 * lineSpacing);
-        renderText(renderer, font, "5. Level 1 (Hexagonal Bricks)", 200, 200 + 4 * lineSpacing);
+        renderText(renderer, font, "Select Level:", 300, 200);
+        renderText(renderer, font, "1. Level 1", 300, 250);
+        renderText(renderer, font, "2. Level 2", 300, 300);
+        renderText(renderer, font, "3. Level 3", 300, 350);
 
         SDL_RenderPresent(renderer);
     }
 
-    return { "", RECTANGULAR };
+    return "";
 }
 
 void createAdditionalBalls(std::vector<Ball>& balls, int screen_width, int screen_height) {
@@ -126,7 +114,7 @@ void createAdditionalBalls(std::vector<Ball>& balls, int screen_width, int scree
     }
 }
 
-GameState runGame(SDL_Renderer* renderer, TTF_Font* font, std::vector<Brick>& bricks, BrickShape brickShape) {
+GameState runGame(SDL_Renderer* renderer, TTF_Font* font, std::vector<Brick>& bricks) {
     Platform platform(SCREEN_WIDTH, SCREEN_HEIGHT);
     std::vector<Ball> balls = { Ball(SCREEN_WIDTH, SCREEN_HEIGHT) };
 
@@ -162,7 +150,7 @@ GameState runGame(SDL_Renderer* renderer, TTF_Font* font, std::vector<Brick>& br
 
         // Check if any ball hits the bottom of the screen
         for (auto it = balls.begin(); it != balls.end();) {
-            if (it->getY() + 2 * it->getRadius() >= SCREEN_HEIGHT) {
+            if (it->getY() + Ball::BALL_SIZE >= SCREEN_HEIGHT) {
                 it = balls.erase(it);
             } else {
                 ++it;
@@ -202,17 +190,7 @@ GameState runGame(SDL_Renderer* renderer, TTF_Font* font, std::vector<Brick>& br
                     score += 10; // Increase score for hitting a brick
                     brick.resetHitFlag(); // Reset the hit flag after updating the score
                 }
-                switch (brickShape) {
-                    case RECTANGULAR:
-                        brick.render(renderer);
-                        break;
-                    case TRIANGULAR:
-                        brick.renderTriangular(renderer);
-                        break;
-                    case HEXAGONAL:
-                        brick.renderHexagonal(renderer);
-                        break;
-                }
+                brick.render(renderer);
             } else if (brick.wasJustDestroyed()) {
                 score += 150; // Increase score for destroying a brick
                 int randNum = std::rand() % 100;
@@ -307,14 +285,14 @@ int main(int argc, char* args[]) {
 
     bool quit = false;
     while (!quit) {
-        auto [chosenLevel, brickShape] = chooseLevel(renderer, font);
+        std::string chosenLevel = chooseLevel(renderer, font);
         if (chosenLevel.empty()) {
             quit = true;
             continue;
         }
 
-        std::vector<Brick> bricks = LevelLoader::loadLevel(chosenLevel, LevelLoader::RECTANGULAR, SCREEN_WIDTH, SCREEN_HEIGHT, BRICK_WIDTH, BRICK_HEIGHT, SPACING);
-        GameState gameState = runGame(renderer, font, bricks, brickShape);
+        std::vector<Brick> bricks = LevelLoader::loadLevel(chosenLevel, SCREEN_WIDTH, SCREEN_HEIGHT, BRICK_WIDTH, BRICK_HEIGHT, SPACING);
+        GameState gameState = runGame(renderer, font, bricks);
         renderEndGame(renderer, font, gameState, 0);
 
         SDL_Event e;
