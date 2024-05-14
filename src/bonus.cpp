@@ -15,13 +15,13 @@ void Bonus::render(SDL_Renderer *renderer) const
     switch (type)
     {
     case EXTRA_LIFE:
-        SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0xFF); // Green color for extra life bonus
+        SDL_SetRenderDrawColor(renderer, 0x00, 0xFF, 0x00, 0xFF);
         break;
     case MULTI_BALL:
-        SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF); // Blue color for multi-ball bonus
+        SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0xFF, 0xFF);
         break;
     case SMALL_PLATFORM:
-        SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF); // Red color for small platform malus
+        SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
         break;
     }
     SDL_RenderFillRect(renderer, &rect);
@@ -29,7 +29,7 @@ void Bonus::render(SDL_Renderer *renderer) const
 
 bool Bonus::isOffScreen() const
 {
-    return rect.y > 600; // Assuming 600 is the screen height
+    return rect.y > 600;
 }
 
 SDL_Rect Bonus::getRect() const

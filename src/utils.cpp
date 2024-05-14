@@ -3,15 +3,14 @@
 #include <algorithm>
 #include <vector>
 
-// Définition simplifiée de DrawCircle
 void DrawCircle(SDL_Renderer *renderer, int x, int y, int radius)
 {
     for (int w = 0; w < radius * 2; w++)
     {
         for (int h = 0; h < radius * 2; h++)
         {
-            int dx = radius - w; // horizontal offset
-            int dy = radius - h; // vertical offset
+            int dx = radius - w;
+            int dy = radius - h;
             if ((dx * dx + dy * dy) <= (radius * radius))
             {
                 SDL_RenderDrawPoint(renderer, x + dx, y + dy);
@@ -20,10 +19,8 @@ void DrawCircle(SDL_Renderer *renderer, int x, int y, int radius)
     }
 }
 
-// Définition simplifiée de checkCollision
 bool checkCollision(const SDL_Rect &a, const SDL_Rect &b)
 {
-    // Vérifie si les rectangles se chevauchent
     if (a.x + a.w < b.x || a.x > b.x + b.w)
         return false;
     if (a.y + a.h < b.y || a.y > b.y + b.h)
@@ -31,11 +28,9 @@ bool checkCollision(const SDL_Rect &a, const SDL_Rect &b)
     return true;
 }
 
-
 void fillPolygon(SDL_Renderer* renderer, const std::vector<SDL_Point>& points) {
-    if (points.size() < 3) return; // A polygon must have at least 3 points
+    if (points.size() < 3) return;
 
-    // Find the top and bottom of the polygon
     auto [minY, maxY] = std::minmax_element(points.begin(), points.end(), [](const SDL_Point& a, const SDL_Point& b) {
         return a.y < b.y;
     });

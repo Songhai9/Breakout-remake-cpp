@@ -52,9 +52,9 @@ void Platform::render(SDL_Renderer *renderer) const
     SDL_Rect fillRect = {posX, posY, PLATFORM_WIDTH, PLATFORM_HEIGHT};
     if (smallPlatformMalus)
     {
-        fillRect.w /= 2; // Reduce width by half if malus is active
+        fillRect.w /= 2;
     }
-    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF); // Black color
+    SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xFF);
     SDL_RenderFillRect(renderer, &fillRect);
 }
 
@@ -63,7 +63,7 @@ SDL_Rect Platform::getRect() const
     SDL_Rect rect = {posX, posY, PLATFORM_WIDTH, PLATFORM_HEIGHT};
     if (smallPlatformMalus)
     {
-        rect.w /= 2; // Adjust width if malus is active
+        rect.w /= 2;
     }
     return rect;
 }
@@ -71,7 +71,7 @@ SDL_Rect Platform::getRect() const
 void Platform::applySmallPlatformMalus()
 {
     smallPlatformMalus = true;
-    malusTimer = 15.0f; // Set the malus duration to 15 seconds
+    malusTimer = 15.0f;
 }
 
 void Platform::update(float deltaTime)
@@ -81,7 +81,7 @@ void Platform::update(float deltaTime)
         malusTimer -= deltaTime;
         if (malusTimer <= 0)
         {
-            smallPlatformMalus = false; // Restore the platform size after the malus duration
+            smallPlatformMalus = false;
         }
     }
 }

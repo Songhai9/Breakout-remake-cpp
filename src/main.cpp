@@ -59,7 +59,7 @@ bool initSDL(SDL_Window *&window, SDL_Renderer *&renderer, TTF_Font *&font)
         std::cerr << "Renderer could not be created! SDL_Error: " << SDL_GetError() << std::endl;
         return false;
     }
-    font = TTF_OpenFont("assets/font.ttf", 24);
+    font = TTF_OpenFont("assets/font.ttf", 16);
     if (font == nullptr)
     {
         std::cerr << "Failed to load font! TTF_Error: " << TTF_GetError() << std::endl;
@@ -89,15 +89,15 @@ void renderText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text,
     SDL_Rect renderQuad = {x, y, textWidth, textHeight};
     SDL_RenderCopy(renderer, textTexture, nullptr, &renderQuad);
     SDL_DestroyTexture(textTexture);
-}
+    }
 
-std::pair<std::string, BrickShape> chooseLevel(SDL_Renderer *renderer, TTF_Font *font)
-{
+    std::pair<std::string, BrickShape> chooseLevel(SDL_Renderer *renderer, TTF_Font *font)
+    {
     bool quit = false;
     SDL_Event e;
     std::vector<std::string> levels = {"levels/level1.txt", "levels/level2.txt", "levels/level3.txt"};
     BrickShape brickShape = RECTANGULAR;
-    int lineSpacing = 50; // Adjust line spacing as needed
+    int lineSpacing = 50;
 
     while (!quit)
     {
@@ -145,25 +145,25 @@ std::pair<std::string, BrickShape> chooseLevel(SDL_Renderer *renderer, TTF_Font 
     }
 
     return {"", RECTANGULAR};
-}
+    }
 
-void createAdditionalBalls(std::vector<Ball> &balls, int screen_width, int screen_height)
-{
+    void createAdditionalBalls(std::vector<Ball> &balls, int screen_width, int screen_height)
+    {
     while (balls.size() < 3)
     {
         balls.emplace_back(screen_width, screen_height);
     }
-}
+    }
 
-GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &bricks, BrickShape brickShape)
-{
+    GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &bricks, BrickShape brickShape)
+    {
     Platform platform(SCREEN_WIDTH, SCREEN_HEIGHT);
     std::vector<Ball> balls = {Ball(SCREEN_WIDTH, SCREEN_HEIGHT)};
 
-    int lives = 3; // Initial number of lives
-    int score = 0; // Initial score
+    int lives = 3;
+    int score = 0;
 
-    std::vector<Bonus> bonuses; // Vector to store active bonuses
+    std::vector<Bonus> bonuses;
 
     bool quit = false;
     SDL_Event e;
@@ -187,14 +187,13 @@ GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &br
         deltaTime = FRAME_DELAY / 1000.0f;
 
         platform.move(deltaTime);
-        platform.update(deltaTime); // Update platform to handle malus duration
+        platform.update(deltaTime);
 
         for (auto &ball : balls)
         {
             ball.move(deltaTime);
         }
 
-        // Check if any ball hits the bottom of the screen
         for (auto it = balls.begin(); it != balls.end();)
         {
             if (it->getY() + 2 * it->getRadius() >= SCREEN_HEIGHT)
@@ -209,9 +208,9 @@ GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &br
 
         if (balls.empty())
         {
-            lives--;                                         // Decrease lives count
-            score -= 50;                                     // Decrease score
-            balls.emplace_back(SCREEN_WIDTH, SCREEN_HEIGHT); // Reset with one ball
+            lives--;
+            score -= 50;
+            balls.emplace_back(SCREEN_WIDTH, SCREEN_HEIGHT);
         }
 
         if (lives <= 0)
@@ -219,7 +218,6 @@ GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &br
             return LOST;
         }
 
-        // Check for collisions
         for (auto &ball : balls)
         {
             ball.checkCollisionWithPlatform(platform.getRect());
@@ -235,7 +233,6 @@ GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &br
             ball.render(renderer);
         }
 
-        // Render bricks and update score
         bool allBricksDestroyed = true;
         for (auto &brick : bricks)
         {
@@ -244,8 +241,8 @@ GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &br
                 allBricksDestroyed = false;
                 if (brick.isHit())
                 {
-                    score += 10;          // Increase score for hitting a brick
-                    brick.resetHitFlag(); // Reset the hit flag after updating the score
+                    score += 10;
+                    brick.resetHitFlag();
                 }
                 switch (brickShape)
                 {
@@ -262,22 +259,22 @@ GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &br
             }
             else if (brick.wasJustDestroyed())
             {
-                score += 150; // Increase score for destroying a brick
+                score += 150;
                 int randNum = std::rand() % 100;
                 if (randNum < 5)
-                { // 5% chance to drop an extra life bonus
+                {
                     int bonusX = brick.getRect().x + brick.getRect().w / 2 - Bonus::getSize() / 2;
                     int bonusY = brick.getRect().y + brick.getRect().h;
                     bonuses.emplace_back(bonusX, bonusY, Bonus::EXTRA_LIFE);
                 }
                 else if (randNum < 10)
-                { // 5% chance to drop a multi-ball bonus
+                {
                     int bonusX = brick.getRect().x + brick.getRect().w / 2 - Bonus::getSize() / 2;
                     int bonusY = brick.getRect().y + brick.getRect().h;
                     bonuses.emplace_back(bonusX, bonusY, Bonus::MULTI_BALL);
                 }
                 else if (randNum < 15)
-                { // 5% chance to drop a small platform malus
+                {
                     int bonusX = brick.getRect().x + brick.getRect().w / 2 - Bonus::getSize() / 2;
                     int bonusY = brick.getRect().y + brick.getRect().h;
                     bonuses.emplace_back(bonusX, bonusY, Bonus::SMALL_PLATFORM);
@@ -290,7 +287,6 @@ GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &br
             return WON;
         }
 
-        // Move and render bonuses
         for (auto it = bonuses.begin(); it != bonuses.end();)
         {
             it->move(deltaTime);
@@ -306,7 +302,7 @@ GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &br
                 {
                     if (it->getType() == Bonus::EXTRA_LIFE)
                     {
-                        lives++; // Increase lives count
+                        lives++;
                     }
                     else if (it->getType() == Bonus::MULTI_BALL)
                     {
@@ -314,7 +310,7 @@ GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &br
                     }
                     else if (it->getType() == Bonus::SMALL_PLATFORM)
                     {
-                        platform.applySmallPlatformMalus(); // Apply small platform malus
+                        platform.applySmallPlatformMalus();
                     }
                     it = bonuses.erase(it);
                 }
@@ -326,13 +322,11 @@ GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &br
             }
         }
 
-        // Render lives
         std::string livesText = "Lives: " + std::to_string(lives);
         int livesTextWidth = 0, livesTextHeight = 0;
         TTF_SizeText(font, livesText.c_str(), &livesTextWidth, &livesTextHeight);
         renderText(renderer, font, livesText, SCREEN_WIDTH - livesTextWidth - 10, SCREEN_HEIGHT - livesTextHeight - 10);
 
-        // Render score
         std::string scoreText = "Score: " + std::to_string(score);
         int scoreTextWidth = 0, scoreTextHeight = 0;
         TTF_SizeText(font, scoreText.c_str(), &scoreTextWidth, &scoreTextHeight);
@@ -348,10 +342,10 @@ GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &br
     }
 
     return LOST;
-}
+    }
 
-void renderEndGame(SDL_Renderer *renderer, TTF_Font *font, GameState gameState, int score)
-{
+    void renderEndGame(SDL_Renderer *renderer, TTF_Font *font, GameState gameState, int score)
+    {
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(renderer);
 
@@ -361,10 +355,10 @@ void renderEndGame(SDL_Renderer *renderer, TTF_Font *font, GameState gameState, 
     renderText(renderer, font, "Press Enter to play again", 300, 300);
 
     SDL_RenderPresent(renderer);
-}
+    }
 
-int main(int argc, char *args[])
-{
+    int main(int argc, char *args[])
+    {
     SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
     TTF_Font *font = nullptr;
@@ -410,4 +404,4 @@ int main(int argc, char *args[])
 
     closeSDL(window, renderer, font);
     return 0;
-}
+    }

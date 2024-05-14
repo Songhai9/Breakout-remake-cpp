@@ -11,11 +11,11 @@ public:
     void move(float deltaTime);
     void render(SDL_Renderer *renderer) const;
     SDL_Rect getRect() const;
-    void applySmallPlatformMalus(); // Apply small platform malus
-    void update(float deltaTime);   // Update method to handle malus duration
+    void applySmallPlatformMalus();
+    void update(float deltaTime);
 
 private:
-    static const int PLATFORM_VEL = 400; // Pixels per second
+    static const int PLATFORM_VEL = 400;
     static const int PLATFORM_WIDTH = 100;
     static const int PLATFORM_HEIGHT = 20;
 

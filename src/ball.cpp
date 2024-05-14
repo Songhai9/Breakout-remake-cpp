@@ -14,6 +14,11 @@ void Ball::move(float deltaTime)
 {
     x += dx * deltaTime;
     y += dy * deltaTime;
+
+    if (x - radius < 0 || x + radius > screenWidth) {
+        dx = -dx;
+    }
+
     rect.x = static_cast<int>(x - radius);
     rect.y = static_cast<int>(y - radius);
 }
@@ -29,7 +34,7 @@ void Ball::checkCollisionWithPlatform(const SDL_Rect &platformRect)
     if (SDL_HasIntersection(&rect, &platformRect))
     {
         dy = -dy;
-        y = platformRect.y - rect.h; // Move the ball above the platform
+        y = platformRect.y - rect.h;
     }
 }
 
@@ -39,11 +44,10 @@ void Ball::checkCollisionWithBricks(std::vector<Brick> &bricks)
     {
         if (!brick.isDestroyed())
         {
-            SDL_Rect brickRect = brick.getRect(); // Store the value in a local variable
+            SDL_Rect brickRect = brick.getRect();
             if (SDL_HasIntersection(&rect, &brickRect))
             {
                 brick.hit();
-                // Check which side of the brick was hit and adjust the ball's velocity accordingly
                 if (x < brickRect.x || x > brickRect.x + brickRect.w)
                 {
                     dx = -dx;

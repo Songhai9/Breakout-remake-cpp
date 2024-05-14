@@ -14,11 +14,11 @@ std::vector<Brick> LevelLoader::loadLevel(const std::string &filePath, GridShape
     }
 
     std::string line;
-    int y = spacing; // Start with some spacing from the top
+    int y = spacing;
     int row = 0;
     while (std::getline(file, line))
     {
-        int x = spacing; // Start with some spacing from the left
+        int x = spacing;
         for (char c : line)
         {
             int hitPoints = 0;

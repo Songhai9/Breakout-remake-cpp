@@ -22,7 +22,7 @@ void Brick::renderHexagonal(SDL_Renderer *renderer) const
     const int hexWidth = rect.w;
     const int hexHeight = rect.h;
     const int r = hexWidth / 2;
-    const int h = static_cast<int>(r * sqrt(3) / 2); // Half height of the hexagon
+    const int h = static_cast<int>(r * sqrt(3) / 2);
 
     std::vector<SDL_Point> points = {
         {rect.x + r / 2, rect.y},
@@ -79,7 +79,7 @@ bool Brick::wasJustDestroyed()
 {
     if (destroyedFlag)
     {
-        destroyedFlag = false; // Reset flag after checking
+        destroyedFlag = false;
         return true;
     }
     return false;
@@ -100,12 +100,12 @@ SDL_Color Brick::getColor() const
     switch (hitPoints)
     {
     case 3:
-        return {0x33, 0x33, 0x33, 0xFF}; // Darker shade for 3-hit bricks
+        return {0x33, 0x33, 0x33, 0xFF};
     case 2:
-        return {0x66, 0x66, 0x66, 0xFF}; // Medium shade for 2-hit bricks
+        return {0x66, 0x66, 0x66, 0xFF};
     case 1:
-        return {0x99, 0x99, 0x99, 0xFF}; // Lighter shade for 1-hit bricks
+        return {0x99, 0x99, 0x99, 0xFF};
     default:
-        return {0x00, 0xFF, 0x00, 0xFF}; // Default color (green)
+        return {0x00, 0xFF, 0x00, 0xFF};
     }
 }

@@ -14,7 +14,7 @@ public:
     void checkCollisionWithPlatform(const SDL_Rect &platformRect);
     void checkCollisionWithBricks(std::vector<Brick> &bricks);
     float getY() const;
-    int getRadius() const; // Assurez-vous que c'est public
+    int getRadius() const;
 
 private:
     int screenWidth;
