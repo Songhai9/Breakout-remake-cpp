@@ -1,5 +1,12 @@
 # Casse Brique Game Development Progress Tracker
 
+
+documentation : make doc puis 'xdg-open doc/html/index.html'
+Presque tout est fonctionnel sauf les différentes formes de briques
+
+--------------------------------------------------------------------------------------------------------------------
+
+
 ## Phase 1: Basic Game Setup
 -  Initialize SDL [✅]
 -  Basic Rendering Loop [✅]
