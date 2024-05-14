@@ -1,0 +1,165 @@
+\hypertarget{classBonus}{}\doxysection{Bonus Class Reference}
+\label{classBonus}\index{Bonus@{Bonus}}
+
+
+Classe représentant un bonus dans le jeu Casse Brique.  
+
+
+
+
+{\ttfamily \#include $<$bonus.\+hpp$>$}
+
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBonus_a7093461454d795f1f430dde694adf8de}\label{classBonus_a7093461454d795f1f430dde694adf8de}} 
+enum \mbox{\hyperlink{classBonus_a7093461454d795f1f430dde694adf8de}{Type}} \{ {\bfseries EXTRA\+\_\+\+LIFE}
+, {\bfseries MULTI\+\_\+\+BALL}
+, {\bfseries SMALL\+\_\+\+PLATFORM}
+ \}
+\begin{DoxyCompactList}\small\item\em Types de bonus disponibles. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBonus_a59c6f153eaf74dd36d97fd6a266c3eba}{Bonus}} (int x, int y, \mbox{\hyperlink{classBonus_a7093461454d795f1f430dde694adf8de}{Type}} type)
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe \mbox{\hyperlink{classBonus}{Bonus}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBonus_a95774cdc7e0932e2deedc14dd788a26c}{move}} (float delta\+Time)
+\begin{DoxyCompactList}\small\item\em Déplace le bonus en fonction du temps écoulé. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classBonus_aa7065e48e76937f813a8ca23ad1a6884}{render}} (SDL\+\_\+\+Renderer $\ast$renderer) const
+\begin{DoxyCompactList}\small\item\em Affiche le bonus sur l\textquotesingle{}écran. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classBonus_aba5fb3ce3e27975ac0a023c8e7690425}{is\+Off\+Screen}} () const
+\begin{DoxyCompactList}\small\item\em Vérifie si le bonus est hors de l\textquotesingle{}écran. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Rect \mbox{\hyperlink{classBonus_a6a64706278fafea32c61e22b63a98b77}{get\+Rect}} () const
+\begin{DoxyCompactList}\small\item\em Retourne le rectangle représentant le bonus. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classBonus_a7093461454d795f1f430dde694adf8de}{Type}} \mbox{\hyperlink{classBonus_a5793d19ed3b1f9ad8b4fbd7dd05e7511}{get\+Type}} () const
+\begin{DoxyCompactList}\small\item\em Retourne le type du bonus. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static int \mbox{\hyperlink{classBonus_a5ab863bc941c602142545784396f6e82}{get\+Size}} ()
+\begin{DoxyCompactList}\small\item\em Retourne la taille du bonus. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBonus_ae0a06db12944e2255bc6dec1889d9817}\label{classBonus_ae0a06db12944e2255bc6dec1889d9817}} 
+static const int \mbox{\hyperlink{classBonus_ae0a06db12944e2255bc6dec1889d9817}{BONUS\+\_\+\+SIZE}} = 20
+\begin{DoxyCompactList}\small\item\em La taille du bonus. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBonus_a80c80735c785b704146bdabaa8cc9008}\label{classBonus_a80c80735c785b704146bdabaa8cc9008}} 
+static const int \mbox{\hyperlink{classBonus_a80c80735c785b704146bdabaa8cc9008}{BONUS\+\_\+\+VEL}} = 100
+\begin{DoxyCompactList}\small\item\em La vitesse du bonus. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe représentant un bonus dans le jeu Casse Brique. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBonus_a59c6f153eaf74dd36d97fd6a266c3eba}\label{classBonus_a59c6f153eaf74dd36d97fd6a266c3eba}} 
+\index{Bonus@{Bonus}!Bonus@{Bonus}}
+\index{Bonus@{Bonus}!Bonus@{Bonus}}
+\doxysubsubsection{\texorpdfstring{Bonus()}{Bonus()}}
+{\footnotesize\ttfamily Bonus\+::\+Bonus (\begin{DoxyParamCaption}\item[{int}]{x,  }\item[{int}]{y,  }\item[{\mbox{\hyperlink{classBonus_a7093461454d795f1f430dde694adf8de}{Type}}}]{type }\end{DoxyParamCaption})}
+
+
+
+Constructeur de la classe \mbox{\hyperlink{classBonus}{Bonus}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Position x du bonus. \\
+\hline
+{\em y} & Position y du bonus. \\
+\hline
+{\em type} & Type du bonus. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBonus_a6a64706278fafea32c61e22b63a98b77}\label{classBonus_a6a64706278fafea32c61e22b63a98b77}} 
+\index{Bonus@{Bonus}!getRect@{getRect}}
+\index{getRect@{getRect}!Bonus@{Bonus}}
+\doxysubsubsection{\texorpdfstring{getRect()}{getRect()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Rect Bonus\+::get\+Rect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retourne le rectangle représentant le bonus. 
+
+\begin{DoxyReturn}{Returns}
+Le rectangle SDL du bonus. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBonus_a5ab863bc941c602142545784396f6e82}\label{classBonus_a5ab863bc941c602142545784396f6e82}} 
+\index{Bonus@{Bonus}!getSize@{getSize}}
+\index{getSize@{getSize}!Bonus@{Bonus}}
+\doxysubsubsection{\texorpdfstring{getSize()}{getSize()}}
+{\footnotesize\ttfamily int Bonus\+::get\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Retourne la taille du bonus. 
+
+\begin{DoxyReturn}{Returns}
+La taille du bonus. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBonus_a5793d19ed3b1f9ad8b4fbd7dd05e7511}\label{classBonus_a5793d19ed3b1f9ad8b4fbd7dd05e7511}} 
+\index{Bonus@{Bonus}!getType@{getType}}
+\index{getType@{getType}!Bonus@{Bonus}}
+\doxysubsubsection{\texorpdfstring{getType()}{getType()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBonus_a7093461454d795f1f430dde694adf8de}{Bonus\+::\+Type}} Bonus\+::get\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retourne le type du bonus. 
+
+\begin{DoxyReturn}{Returns}
+Le type du bonus. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBonus_aba5fb3ce3e27975ac0a023c8e7690425}\label{classBonus_aba5fb3ce3e27975ac0a023c8e7690425}} 
+\index{Bonus@{Bonus}!isOffScreen@{isOffScreen}}
+\index{isOffScreen@{isOffScreen}!Bonus@{Bonus}}
+\doxysubsubsection{\texorpdfstring{isOffScreen()}{isOffScreen()}}
+{\footnotesize\ttfamily bool Bonus\+::is\+Off\+Screen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Vérifie si le bonus est hors de l\textquotesingle{}écran. 
+
+\begin{DoxyReturn}{Returns}
+True si le bonus est hors de l\textquotesingle{}écran, false sinon. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBonus_a95774cdc7e0932e2deedc14dd788a26c}\label{classBonus_a95774cdc7e0932e2deedc14dd788a26c}} 
+\index{Bonus@{Bonus}!move@{move}}
+\index{move@{move}!Bonus@{Bonus}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void Bonus\+::move (\begin{DoxyParamCaption}\item[{float}]{delta\+Time }\end{DoxyParamCaption})}
+
+
+
+Déplace le bonus en fonction du temps écoulé. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+Time} & Le temps écoulé depuis la dernière mise à jour. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBonus_aa7065e48e76937f813a8ca23ad1a6884}\label{classBonus_aa7065e48e76937f813a8ca23ad1a6884}} 
+\index{Bonus@{Bonus}!render@{render}}
+\index{render@{render}!Bonus@{Bonus}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void Bonus\+::render (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer }\end{DoxyParamCaption}) const}
+
+
+
+Affiche le bonus sur l\textquotesingle{}écran. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & Le renderer SDL. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+includes/bonus.\+hpp\item 
+src/bonus.\+cpp\end{DoxyCompactItemize}

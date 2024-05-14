@@ -1,24 +1,41 @@
-CC = g++
-CFLAGS = -Werror -Wall -Iincludes -I/usr/include/SDL2/
-LFLAGS = -lSDL2
-OBJDIR = obj/
-SRCDIR = src/
-BINDIR = bin/
-TARGET = casse_brique
-SOURCES = $(wildcard $(SRCDIR)*.cpp)
-OBJECTS = $(patsubst $(SRCDIR)%.cpp, $(OBJDIR)%.o, $(SOURCES))
+# Compiler and flags
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Iincludes
+LDFLAGS = -lSDL2 -lSDL2_ttf
 
-all: $(BINDIR)$(TARGET)
+# Directories
+SRC_DIR = src
+OBJ_DIR = obj
+BIN_DIR = bin
+DOC_DIR = doc
 
-$(BINDIR)$(TARGET): $(OBJECTS)
-	@mkdir -p $(BINDIR)
-	$(CC) $^ -o $@ $(LFLAGS) -lSDL2 -lSDL2_ttf
+# Files
+TARGET = $(BIN_DIR)/CasseBrique
+SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
+DOXYFILE = Doxyfile
 
-$(OBJDIR)%.o: $(SRCDIR)%.cpp
-	@mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+# Targets
+all: $(TARGET) doc
 
+$(TARGET): $(OBJS)
+	mkdir -p $(BIN_DIR)
+	$(CXX) $(OBJS) -o $(TARGET) $(LDFLAGS)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	mkdir -p $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Documentation target
+doc:
+	@if [ -f $(DOXYFILE) ]; then doxygen $(DOXYFILE); else echo "Doxyfile not found."; fi
+
+# Clean target
 clean:
-	rm -rf $(OBJDIR) $(BINDIR)$(TARGET)
+	rm -rf $(OBJ_DIR) $(BIN_DIR) $(DOC_DIR)
 
-.PHONY: all clean
+# Phony targets
+.PHONY: clean run doc
+
+run: $(TARGET)
+	./$(TARGET)

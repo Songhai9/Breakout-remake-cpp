@@ -1,0 +1,73 @@
+\hypertarget{classBall}{}\doxysection{Ball Class Reference}
+\label{classBall}\index{Ball@{Ball}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBall_a12364fdbdb820164c7231881b30f3ca4}{Ball}} (SDL\+\_\+\+Renderer $\ast$renderer, int initX, int initY)
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe \mbox{\hyperlink{classBall}{Ball}}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBall_af30f4707d26a6e7ba0af1dd8cac37684}\label{classBall_af30f4707d26a6e7ba0af1dd8cac37684}} 
+void {\bfseries update} ()
+\item 
+void \mbox{\hyperlink{classBall_acdaa49a93de8951c0c5a0fe565657258}{render}} ()
+\begin{DoxyCompactList}\small\item\em Affiche la balle sur l\textquotesingle{}écran. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBall_a8a850ae361be9bc5fda13013a24f9c4a}\label{classBall_a8a850ae361be9bc5fda13013a24f9c4a}} 
+void {\bfseries reverseY} ()
+\item 
+\mbox{\Hypertarget{classBall_a6743a47ea93922764bcf451de91865ab}\label{classBall_a6743a47ea93922764bcf451de91865ab}} 
+void {\bfseries reverseX} ()
+\item 
+\mbox{\Hypertarget{classBall_a907d6844b057e3beb215694491f6f985}\label{classBall_a907d6844b057e3beb215694491f6f985}} 
+const SDL\+\_\+\+Rect \& {\bfseries get\+Rect} () const
+\item 
+\mbox{\Hypertarget{classBall_a6662554049d929d1abcc974b643874c1}\label{classBall_a6662554049d929d1abcc974b643874c1}} 
+void {\bfseries adjust\+On\+Collision\+With\+Paddle} (const SDL\+\_\+\+Rect \&paddle\+Rect)
+\item 
+\mbox{\Hypertarget{classBall_ae4b47ecc08d05491ed03925b9c7d04db}\label{classBall_ae4b47ecc08d05491ed03925b9c7d04db}} 
+void {\bfseries adjust\+On\+Collision\+With\+Brick} (const SDL\+\_\+\+Rect \&brick\+Rect)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBall_a12364fdbdb820164c7231881b30f3ca4}\label{classBall_a12364fdbdb820164c7231881b30f3ca4}} 
+\index{Ball@{Ball}!Ball@{Ball}}
+\index{Ball@{Ball}!Ball@{Ball}}
+\doxysubsubsection{\texorpdfstring{Ball()}{Ball()}}
+{\footnotesize\ttfamily Ball\+::\+Ball (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer,  }\item[{int}]{initX,  }\item[{int}]{initY }\end{DoxyParamCaption})}
+
+
+
+Constructeur de la classe \mbox{\hyperlink{classBall}{Ball}}. 
+
+Initialise la balle à la position centrale de l\textquotesingle{}écran et avec une vitesse aléatoire.
+
+
+\begin{DoxyParams}{Parameters}
+{\em screen\+\_\+width} & La largeur de l\textquotesingle{}écran. \\
+\hline
+{\em screen\+\_\+height} & La hauteur de l\textquotesingle{}écran. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBall_acdaa49a93de8951c0c5a0fe565657258}\label{classBall_acdaa49a93de8951c0c5a0fe565657258}} 
+\index{Ball@{Ball}!render@{render}}
+\index{render@{render}!Ball@{Ball}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void Ball\+::render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Affiche la balle sur l\textquotesingle{}écran. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & Le renderer SDL. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+includes/ball.\+hpp\item 
+src/ball.\+cpp\end{DoxyCompactItemize}

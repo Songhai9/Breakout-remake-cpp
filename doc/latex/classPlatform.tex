@@ -1,0 +1,134 @@
+\hypertarget{classPlatform}{}\doxysection{Platform Class Reference}
+\label{classPlatform}\index{Platform@{Platform}}
+
+
+Classe représentant la plateforme dans le jeu Casse Brique.  
+
+
+
+
+{\ttfamily \#include $<$platform.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPlatform_a58d8158c7e1fbd2b1b7ab8e4fa9bc420}{Platform}} (int screen\+\_\+width, int screen\+\_\+height)
+\begin{DoxyCompactList}\small\item\em Constructeur de la classe \mbox{\hyperlink{classPlatform}{Platform}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPlatform_a52af9e78d849e648abc468ee47c6fa18}{handle\+Event}} (const SDL\+\_\+\+Event \&e)
+\begin{DoxyCompactList}\small\item\em Gère les événements de clavier pour déplacer la plateforme. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPlatform_af66f3f93344c85f0f5b6abcff78d3c17}{move}} (float delta\+Time)
+\begin{DoxyCompactList}\small\item\em Déplace la plateforme en fonction du temps écoulé. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPlatform_aaa5a89b60f91f6ea342ea87ab6f20ffa}{render}} (SDL\+\_\+\+Renderer $\ast$renderer) const
+\begin{DoxyCompactList}\small\item\em Affiche la plateforme sur l\textquotesingle{}écran. \end{DoxyCompactList}\item 
+SDL\+\_\+\+Rect \mbox{\hyperlink{classPlatform_a60be76402ee211bf3de205827ae27820}{get\+Rect}} () const
+\begin{DoxyCompactList}\small\item\em Retourne le rectangle représentant la plateforme. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classPlatform_a49f705fd41f5fe8c90ef3dca82151b21}\label{classPlatform_a49f705fd41f5fe8c90ef3dca82151b21}} 
+void \mbox{\hyperlink{classPlatform_a49f705fd41f5fe8c90ef3dca82151b21}{apply\+Small\+Platform\+Malus}} ()
+\begin{DoxyCompactList}\small\item\em Applique le malus de petite plateforme. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classPlatform_a3889f34255593c671b7724c97f39b738}{update}} (float delta\+Time)
+\begin{DoxyCompactList}\small\item\em Met à jour l\textquotesingle{}état de la plateforme. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe représentant la plateforme dans le jeu Casse Brique. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPlatform_a58d8158c7e1fbd2b1b7ab8e4fa9bc420}\label{classPlatform_a58d8158c7e1fbd2b1b7ab8e4fa9bc420}} 
+\index{Platform@{Platform}!Platform@{Platform}}
+\index{Platform@{Platform}!Platform@{Platform}}
+\doxysubsubsection{\texorpdfstring{Platform()}{Platform()}}
+{\footnotesize\ttfamily Platform\+::\+Platform (\begin{DoxyParamCaption}\item[{int}]{screen\+\_\+width,  }\item[{int}]{screen\+\_\+height }\end{DoxyParamCaption})}
+
+
+
+Constructeur de la classe \mbox{\hyperlink{classPlatform}{Platform}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em screen\+\_\+width} & La largeur de l\textquotesingle{}écran. \\
+\hline
+{\em screen\+\_\+height} & La hauteur de l\textquotesingle{}écran. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPlatform_a60be76402ee211bf3de205827ae27820}\label{classPlatform_a60be76402ee211bf3de205827ae27820}} 
+\index{Platform@{Platform}!getRect@{getRect}}
+\index{getRect@{getRect}!Platform@{Platform}}
+\doxysubsubsection{\texorpdfstring{getRect()}{getRect()}}
+{\footnotesize\ttfamily SDL\+\_\+\+Rect Platform\+::get\+Rect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Retourne le rectangle représentant la plateforme. 
+
+\begin{DoxyReturn}{Returns}
+Le rectangle SDL de la plateforme. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPlatform_a52af9e78d849e648abc468ee47c6fa18}\label{classPlatform_a52af9e78d849e648abc468ee47c6fa18}} 
+\index{Platform@{Platform}!handleEvent@{handleEvent}}
+\index{handleEvent@{handleEvent}!Platform@{Platform}}
+\doxysubsubsection{\texorpdfstring{handleEvent()}{handleEvent()}}
+{\footnotesize\ttfamily void Platform\+::handle\+Event (\begin{DoxyParamCaption}\item[{const SDL\+\_\+\+Event \&}]{e }\end{DoxyParamCaption})}
+
+
+
+Gère les événements de clavier pour déplacer la plateforme. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em e} & L\textquotesingle{}événement SDL. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classPlatform_af66f3f93344c85f0f5b6abcff78d3c17}\label{classPlatform_af66f3f93344c85f0f5b6abcff78d3c17}} 
+\index{Platform@{Platform}!move@{move}}
+\index{move@{move}!Platform@{Platform}}
+\doxysubsubsection{\texorpdfstring{move()}{move()}}
+{\footnotesize\ttfamily void Platform\+::move (\begin{DoxyParamCaption}\item[{float}]{delta\+Time }\end{DoxyParamCaption})}
+
+
+
+Déplace la plateforme en fonction du temps écoulé. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+Time} & Le temps écoulé depuis la dernière mise à jour. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classPlatform_aaa5a89b60f91f6ea342ea87ab6f20ffa}\label{classPlatform_aaa5a89b60f91f6ea342ea87ab6f20ffa}} 
+\index{Platform@{Platform}!render@{render}}
+\index{render@{render}!Platform@{Platform}}
+\doxysubsubsection{\texorpdfstring{render()}{render()}}
+{\footnotesize\ttfamily void Platform\+::render (\begin{DoxyParamCaption}\item[{SDL\+\_\+\+Renderer $\ast$}]{renderer }\end{DoxyParamCaption}) const}
+
+
+
+Affiche la plateforme sur l\textquotesingle{}écran. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em renderer} & Le renderer SDL. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classPlatform_a3889f34255593c671b7724c97f39b738}\label{classPlatform_a3889f34255593c671b7724c97f39b738}} 
+\index{Platform@{Platform}!update@{update}}
+\index{update@{update}!Platform@{Platform}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Platform\+::update (\begin{DoxyParamCaption}\item[{float}]{delta\+Time }\end{DoxyParamCaption})}
+
+
+
+Met à jour l\textquotesingle{}état de la plateforme. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+Time} & Le temps écoulé depuis la dernière mise à jour. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+includes/platform.\+hpp\item 
+src/platform.\+cpp\end{DoxyCompactItemize}
