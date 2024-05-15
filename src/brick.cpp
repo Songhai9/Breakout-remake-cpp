@@ -18,14 +18,47 @@ void Brick::renderHexagonal(SDL_Renderer *renderer) const
 {
     SDL_Color color = getColor();
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    // Drawing hexagonal brick is not implemented here, add implementation.
+
+    // Calcul des coordonnées des sommets de l'hexagone
+    int x1 = rect.x + rect.w / 4;
+    int y1 = rect.y;
+    int x2 = rect.x + rect.w * 3 / 4;
+    int y2 = rect.y;
+    int x3 = rect.x + rect.w;
+    int y3 = rect.y + rect.h / 2;
+    int x4 = rect.x + rect.w * 3 / 4;
+    int y4 = rect.y + rect.h;
+    int x5 = rect.x + rect.w / 4;
+    int y5 = rect.y + rect.h;
+    int x6 = rect.x;
+    int y6 = rect.y + rect.h / 2;
+
+    // Dessin de l'hexagone
+    SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+    SDL_RenderDrawLine(renderer, x2, y2, x3, y3);
+    SDL_RenderDrawLine(renderer, x3, y3, x4, y4);
+    SDL_RenderDrawLine(renderer, x4, y4, x5, y5);
+    SDL_RenderDrawLine(renderer, x5, y5, x6, y6);
+    SDL_RenderDrawLine(renderer, x6, y6, x1, y1);
 }
 
 void Brick::renderTriangular(SDL_Renderer *renderer) const
 {
     SDL_Color color = getColor();
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    // Drawing triangular brick is not implemented here, add implementation.
+
+    // Calcul des coordonnées des sommets du triangle
+    int x1 = rect.x + rect.w / 2;
+    int y1 = rect.y;
+    int x2 = rect.x;
+    int y2 = rect.y + rect.h;
+    int x3 = rect.x + rect.w;
+    int y3 = rect.y + rect.h;
+
+    // Dessin du triangle
+    SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+    SDL_RenderDrawLine(renderer, x2, y2, x3, y3);
+    SDL_RenderDrawLine(renderer, x3, y3, x1, y1);
 }
 
 void Brick::hit()

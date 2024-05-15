@@ -46,6 +46,7 @@ std::vector<Brick> LevelLoader::loadLevel(const std::string &filePath, GridShape
             {
                 hitPoints = 3;
             }
+
             if (hitPoints > 0)
             {
                 if (shape == RECTANGULAR)
