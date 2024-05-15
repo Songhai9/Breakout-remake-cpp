@@ -15,9 +15,15 @@ void Ball::move(float deltaTime)
     x += dx * deltaTime;
     y += dy * deltaTime;
 
+
     if (x - radius < 0 || x + radius > screenWidth)
     {
         dx = -dx;
+    }
+
+    if (y - radius < 0)
+    {
+        dy = -dy;
     }
 
     rect.x = static_cast<int>(x - radius);

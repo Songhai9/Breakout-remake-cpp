@@ -95,7 +95,7 @@ void renderText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text,
     {
     bool quit = false;
     SDL_Event e;
-    std::vector<std::string> levels = {"levels/level1.txt", "levels/level2.txt", "levels/level3.txt"};
+    std::vector<std::string> levels = {"levels/level1.txt", "levels/level2.txt", "levels/level3.txt", "levels/level5.txt"};
     BrickShape brickShape = RECTANGULAR;
     int lineSpacing = 50;
 
@@ -126,7 +126,7 @@ void renderText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text,
                     return {levels[0], brickShape};
                 case SDLK_5:
                     brickShape = HEXAGONAL;
-                    return {levels[0], brickShape};
+                    return {levels[3], brickShape};
                 }
             }
         }
