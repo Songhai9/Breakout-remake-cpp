@@ -4,16 +4,16 @@
 #include <cmath>
 
 /**
- * @brief Loads a level from a file, creating a vector of bricks with specified attributes.
- *
- * @param filePath Path to the level configuration file.
- * @param shape Shape of the bricks in the level (Rectangular, Hexagonal, Triangular).
- * @param screenWidth Width of the game screen to scale brick positioning.
- * @param screenHeight Height of the game screen to scale brick positioning.
- * @param brickWidth Width of each brick.
- * @param brickHeight Height of each brick.
- * @param spacing Space between bricks.
- * @return std::vector<Brick> Vector containing all bricks for the level.
+ * @brief Charge un niveau à partir d'un fichier et retourne un vecteur de briques.
+ * 
+ * @param filePath Le chemin du fichier contenant le niveau.
+ * @param shape La forme de la grille.
+ * @param screenWidth La largeur de l'écran.
+ * @param screenHeight La hauteur de l'écran.
+ * @param brickWidth La largeur d'une brique.
+ * @param brickHeight La hauteur d'une brique.
+ * @param spacing L'espacement entre les briques.
+ * @return Un vecteur de briques représentant le niveau chargé.
  */
 std::vector<Brick> LevelLoader::loadLevel(const std::string &filePath, GridShape shape, int screenWidth, int screenHeight, int brickWidth, int brickHeight, int spacing)
 {
@@ -26,11 +26,11 @@ std::vector<Brick> LevelLoader::loadLevel(const std::string &filePath, GridShape
     }
 
     std::string line;
-    int y = spacing;
+    int y = spacing; 
     int row = 0;
     while (std::getline(file, line))
     {
-        int x = spacing;
+        int x = spacing; 
         for (char c : line)
         {
             int hitPoints = 0;
@@ -46,7 +46,6 @@ std::vector<Brick> LevelLoader::loadLevel(const std::string &filePath, GridShape
             {
                 hitPoints = 3;
             }
-
             if (hitPoints > 0)
             {
                 if (shape == RECTANGULAR)

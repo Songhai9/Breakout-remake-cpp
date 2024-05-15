@@ -5,71 +5,71 @@
 
 /**
  * @class Platform
- * @brief Represents the player-controlled platform in the game.
+ * @brief Représente la plateforme contrôlée par le joueur dans le jeu.
  */
 class Platform
 {
 public:
     /**
-     * @brief Construct a new Platform object.
+     * @brief Construit un nouvel objet Platform.
      *
-     * @param screen_width Width of the game screen to determine platform boundaries.
-     * @param screen_height Height of the game screen to determine platform position.
+     * @param screen_width Largeur de l'écran de jeu pour déterminer les limites de la plateforme.
+     * @param screen_height Hauteur de l'écran de jeu pour positionner la plateforme.
      */
     Platform(int screen_width, int screen_height);
 
     /**
-     * @brief Handles keyboard events for platform movement.
+     * @brief Gère les événements clavier pour le mouvement de la plateforme.
      *
-     * @param e SDL_Event to handle.
+     * @param e SDL_Event à gérer.
      */
     void handleEvent(const SDL_Event &e);
 
     /**
-     * @brief Moves the platform based on its current velocity and time elapsed.
+     * @brief Déplace la plateforme en fonction de sa vitesse actuelle et du temps écoulé.
      *
-     * @param deltaTime Time elapsed since the last update.
+     * @param deltaTime Temps écoulé depuis la dernière mise à jour.
      */
     void move(float deltaTime);
 
     /**
-     * @brief Renders the platform on the screen.
+     * @brief Affiche la plateforme à l'écran.
      *
-     * @param renderer SDL Renderer to draw the platform.
+     * @param renderer SDL Renderer pour dessiner la plateforme.
      */
     void render(SDL_Renderer *renderer) const;
 
     /**
-     * @brief Get the SDL_Rect representing the platform's position and dimensions.
+     * @brief Obtient le SDL_Rect représentant la position et les dimensions de la plateforme.
      *
-     * @return SDL_Rect Rectangle of the platform.
+     * @return SDL_Rect Rectangle de la plateforme.
      */
     SDL_Rect getRect() const;
 
     /**
-     * @brief Applies a temporary malus that reduces the platform's width.
+     * @brief Applique un malus temporaire qui réduit la largeur de la plateforme.
      */
     void applySmallPlatformMalus();
 
     /**
-     * @brief Updates the platform's state, including checking and handling the malus timer.
+     * @brief Met à jour l'état de la plateforme, y compris la vérification et la gestion de la minuterie du malus.
      *
-     * @param deltaTime Time elapsed since the last frame.
+     * @param deltaTime Temps écoulé depuis la dernière image.
      */
     void update(float deltaTime);
 
 private:
-    static const int PLATFORM_VEL = 400;   ///< Velocity of the platform movement.
-    static const int PLATFORM_WIDTH = 100; ///< Width of the platform.
-    static const int PLATFORM_HEIGHT = 20; ///< Height of the platform.
+    static const int PLATFORM_VEL = 400;   ///< Vitesse de déplacement de la plateforme.
+    static const int PLATFORM_WIDTH = 100; ///< Largeur de la plateforme.
+    static const int PLATFORM_HEIGHT = 20; ///< Hauteur de la plateforme.
 
-    int screenWidth;  ///< Width of the screen to limit platform's movement.
-    int screenHeight; ///< Height of the screen for positioning.
-    int posX, posY;   ///< Position of the platform on the screen.
-    int velX;         ///< Current horizontal velocity of the platform.
+    int screenWidth;  ///< Largeur de l'écran pour limiter le mouvement de la plateforme.
+    int screenHeight; ///< Hauteur de l'écran pour le positionnement.
+    int posX, posY;   ///< Position de la plateforme sur l'écran.
+    int velX;         ///< Vitesse horizontale actuelle de la plateforme.
 
-    bool smallPlatformMalus; ///< Flag to indicate if the platform is under a size-reducing malus.
-    float malusTimer;        ///< Timer to track the duration of the small platform malus.
+    bool smallPlatformMalus; ///< Indicateur indiquant si la plateforme est soumise à un malus de réduction de taille.
+    float malusTimer;        ///< Minuterie pour suivre la durée du malus de petite plateforme.
 };
 
 #endif

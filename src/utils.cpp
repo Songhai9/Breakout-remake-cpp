@@ -24,12 +24,22 @@ bool checkCollision(const SDL_Rect &a, const SDL_Rect &b)
     return !(a.x + a.w < b.x || a.x > b.x + b.w || a.y + a.h < b.y || a.y > b.y + b.h);
 }
 
+/**
+ * @brief Remplit un polygone avec une couleur donnée.
+ * 
+ * Cette fonction utilise l'algorithme du balayage de ligne pour remplir un polygone
+ * défini par une liste de points avec une couleur spécifiée.
+ * 
+ * @param renderer Le renderer SDL sur lequel dessiner le polygone rempli.
+ * @param points   La liste des points définissant le polygone.
+ * 
+ * @note Cette fonction ne remplit pas le polygone si celui-ci contient moins de 3 points.
+ */
 void fillPolygon(SDL_Renderer *renderer, const std::vector<SDL_Point> &points)
 {
     if (points.size() < 3)
         return; // Not enough points to form a polygon.
 
-    // Find the vertical bounds of the polygon.
     auto [minY, maxY] = std::minmax_element(points.begin(), points.end(), [](const SDL_Point &a, const SDL_Point &b)
                                             { return a.y < b.y; });
 

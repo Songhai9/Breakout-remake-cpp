@@ -12,14 +12,14 @@
 #include "../includes/bonus.hpp"
 #include "../includes/utils.hpp"
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
+const int SCREEN_WIDTH = 1200;
+const int SCREEN_HEIGHT = 800;
 const int FPS = 60;
 const int FRAME_DELAY = 1000 / FPS;
 
-const int SPACING = 10;                                           // Spacing between bricks
-const int BRICK_WIDTH = (SCREEN_WIDTH - (10 + 1) * SPACING) / 10; // Adjusted brick width for 10 columns
-const int BRICK_HEIGHT = 20;                                      // Fixed brick height
+const int SPACING = 10;
+const int BRICK_WIDTH = (SCREEN_WIDTH - (10 + 1) * SPACING) / 10;
+const int BRICK_HEIGHT = 20;
 
 enum GameState
 {
@@ -35,6 +35,14 @@ enum BrickShape
     HEXAGONAL
 };
 
+/**
+ * @brief Initialise SDL, la fenêtre, le renderer et la police TTF.
+ *
+ * @param window Référence vers le pointeur de la fenêtre SDL.
+ * @param renderer Référence vers le pointeur du renderer SDL.
+ * @param font Référence vers le pointeur de la police TTF.
+ * @return true si l'initialisation a réussi, false sinon.
+ */
 bool initSDL(SDL_Window *&window, SDL_Renderer *&renderer, TTF_Font *&font)
 {
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -68,6 +76,13 @@ bool initSDL(SDL_Window *&window, SDL_Renderer *&renderer, TTF_Font *&font)
     return true;
 }
 
+/**
+ * @brief Ferme SDL, détruit la fenêtre, le renderer et libère la police TTF.
+ *
+ * @param window Pointeur vers la fenêtre SDL.
+ * @param renderer Pointeur vers le renderer SDL.
+ * @param font Pointeur vers la police TTF.
+ */
 void closeSDL(SDL_Window *window, SDL_Renderer *renderer, TTF_Font *font)
 {
     TTF_CloseFont(font);
@@ -77,6 +92,15 @@ void closeSDL(SDL_Window *window, SDL_Renderer *renderer, TTF_Font *font)
     SDL_Quit();
 }
 
+/**
+ * @brief Affiche du texte à l'écran.
+ *
+ * @param renderer Pointeur vers le renderer SDL.
+ * @param font Pointeur vers la police TTF.
+ * @param text Texte à afficher.
+ * @param x Position en x du texte.
+ * @param y Position en y du texte.
+ */
 void renderText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text, int x, int y)
 {
     SDL_Color textColor = {0, 0, 0, 255};
@@ -89,10 +113,17 @@ void renderText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text,
     SDL_Rect renderQuad = {x, y, textWidth, textHeight};
     SDL_RenderCopy(renderer, textTexture, nullptr, &renderQuad);
     SDL_DestroyTexture(textTexture);
-    }
+}
 
-    std::pair<std::string, BrickShape> chooseLevel(SDL_Renderer *renderer, TTF_Font *font)
-    {
+/**
+ * @brief Affiche l'écran de sélection de niveau et de forme de briques.
+ *
+ * @param renderer Pointeur vers le renderer SDL.
+ * @param font Pointeur vers la police TTF.
+ * @return Un pair contenant le nom du niveau choisi et la forme des briques.
+ */
+std::pair<std::string, BrickShape> chooseLevel(SDL_Renderer *renderer, TTF_Font *font)
+{
     bool quit = false;
     SDL_Event e;
     std::vector<std::string> levels = {"levels/level1.txt", "levels/level2.txt", "levels/level3.txt", "levels/level5.txt"};
@@ -135,28 +166,44 @@ void renderText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text,
         SDL_RenderClear(renderer);
 
         renderText(renderer, font, "Select Level and Brick Shape:", 200, 150);
-        renderText(renderer, font, "1. Level 1 (Rectangular Bricks)", 200, 200);
-        renderText(renderer, font, "2. Level 2 (Rectangular Bricks)", 200, 200 + lineSpacing);
-        renderText(renderer, font, "3. Level 3 (Rectangular Bricks)", 200, 200 + 2 * lineSpacing);
-        renderText(renderer, font, "4. Level 1 (Triangular Bricks)", 200, 200 + 3 * lineSpacing);
-        renderText(renderer, font, "5. Level 1 (Hexagonal Bricks)", 200, 200 + 4 * lineSpacing);
+        renderText(renderer, font, "1. Level 1      Rectangular Bricks", 200, 200);
+        renderText(renderer, font, "2. Level 2      Rectangular Bricks", 200, 200 + lineSpacing);
+        renderText(renderer, font, "3. Level 3      Rectangular Bricks", 200, 200 + 2 * lineSpacing);
+        renderText(renderer, font, "4. Level 1      Triangular Bricks", 200, 200 + 3 * lineSpacing);
+        renderText(renderer, font, "5. Level 1      Hexagonal Bricks", 200, 200 + 4 * lineSpacing);
 
         SDL_RenderPresent(renderer);
     }
 
     return {"", RECTANGULAR};
-    }
+}
 
-    void createAdditionalBalls(std::vector<Ball> &balls, int screen_width, int screen_height)
-    {
+/**
+ * @brief Crée des balles supplémentaires pour le jeu.
+ *
+ * @param balls Référence vers le vecteur de balles.
+ * @param screen_width Largeur de l'écran.
+ * @param screen_height Hauteur de l'écran.
+ */
+void createAdditionalBalls(std::vector<Ball> &balls, int screen_width, int screen_height)
+{
     while (balls.size() < 3)
     {
         balls.emplace_back(screen_width, screen_height);
     }
-    }
+}
 
-    GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &bricks, BrickShape brickShape)
-    {
+/**
+ * @brief Fonction principale du jeu qui gère la boucle du jeu.
+ *
+ * @param renderer Pointeur vers le renderer SDL.
+ * @param font Pointeur vers la police TTF.
+ * @param bricks Référence vers le vecteur de briques.
+ * @param brickShape Forme des briques.
+ * @return L'état du jeu après la fin de la partie (gagné ou perdu).
+ */
+GameState runGame(SDL_Renderer *renderer, TTF_Font *font, std::vector<Brick> &bricks, BrickShape brickShape)
+{
     Platform platform(SCREEN_WIDTH, SCREEN_HEIGHT);
     std::vector<Ball> balls = {Ball(SCREEN_WIDTH, SCREEN_HEIGHT)};
 
@@ -342,10 +389,18 @@ void renderText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text,
     }
 
     return LOST;
-    }
+}
 
-    void renderEndGame(SDL_Renderer *renderer, TTF_Font *font, GameState gameState, int score)
-    {
+/**
+ * @brief Affiche l'écran de fin de jeu.
+ *
+ * @param renderer Pointeur vers le renderer SDL.
+ * @param font Pointeur vers la police TTF.
+ * @param gameState État du jeu (gagné ou perdu).
+ * @param score Score final du joueur.
+ */
+void renderEndGame(SDL_Renderer *renderer, TTF_Font *font, GameState gameState, int score)
+{
     SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
     SDL_RenderClear(renderer);
 
@@ -355,10 +410,17 @@ void renderText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text,
     renderText(renderer, font, "Press Enter to play again", 300, 300);
 
     SDL_RenderPresent(renderer);
-    }
+}
 
-    int main(int argc, char *args[])
-    {
+/**
+ * @brief Fonction principale du programme.
+ *
+ * @param argc Nombre d'arguments de la ligne de commande.
+ * @param args Tableau des arguments de la ligne de commande.
+ * @return Code de retour du programme.
+ */
+int main(int argc, char *args[])
+{
     SDL_Window *window = nullptr;
     SDL_Renderer *renderer = nullptr;
     TTF_Font *font = nullptr;
@@ -404,4 +466,4 @@ void renderText(SDL_Renderer *renderer, TTF_Font *font, const std::string &text,
 
     closeSDL(window, renderer, font);
     return 0;
-    }
+}

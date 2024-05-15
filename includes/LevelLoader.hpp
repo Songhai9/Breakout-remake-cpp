@@ -7,31 +7,31 @@
 
 /**
  * @class LevelLoader
- * @brief Responsible for loading game levels from files.
+ * @brief Responsable du chargement des niveaux de jeu à partir de fichiers.
  *
- * The LevelLoader class handles the creation of levels by reading layout configurations from files and creating bricks accordingly.
+ * La classe LevelLoader gère la création des niveaux en lisant les configurations de disposition à partir de fichiers et en créant les briques en conséquence.
  */
 class LevelLoader
 {
 public:
     enum GridShape
     {
-        RECTANGULAR, ///< Rectangular shaped bricks.
-        HEXAGONAL,   ///< Hexagonal shaped bricks.
-        TRIANGULAR   ///< Triangular shaped bricks.
+        RECTANGULAR, ///< Briques de forme rectangulaire.
+        HEXAGONAL,   ///< Briques de forme hexagonale.
+        TRIANGULAR   ///< Briques de forme triangulaire.
     };
 
     /**
-     * @brief Loads a level from a file.
+     * @brief Charge un niveau à partir d'un fichier.
      *
-     * @param filePath Path to the level configuration file.
-     * @param shape Shape of the bricks in the level.
-     * @param screenWidth Width of the game screen to scale brick positioning.
-     * @param screenHeight Height of the game screen to scale brick positioning.
-     * @param brickWidth Width of each brick.
-     * @param brickHeight Height of each brick.
-     * @param spacing Space between bricks.
-     * @return std::vector<Brick> Vector containing all bricks for the level.
+     * @param filePath Chemin vers le fichier de configuration du niveau.
+     * @param shape Forme des briques dans le niveau.
+     * @param screenWidth Largeur de l'écran de jeu pour mettre à l'échelle la position des briques.
+     * @param screenHeight Hauteur de l'écran de jeu pour mettre à l'échelle la position des briques.
+     * @param brickWidth Largeur de chaque brique.
+     * @param brickHeight Hauteur de chaque brique.
+     * @param spacing Espace entre les briques.
+     * @return std::vector<Brick> Vecteur contenant toutes les briques du niveau.
      */
     static std::vector<Brick> loadLevel(const std::string &filePath, GridShape shape, int screenWidth, int screenHeight, int brickWidth, int brickHeight, int spacing);
 };

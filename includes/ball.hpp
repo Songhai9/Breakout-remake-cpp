@@ -7,58 +7,58 @@
 
 /**
  * @class Ball
- * @brief Represents the ball used in the game, handling its movement and interactions.
+ * @brief Représente la balle utilisée dans le jeu, gérant son mouvement et ses interactions.
  */
 class Ball
 {
 public:
     /**
-     * @brief Construct a new Ball object.
+     * @brief Construit un nouvel objet Ball.
      *
-     * @param screenWidth Width of the screen to bound ball movement.
-     * @param screenHeight Height of the screen to bound ball movement.
+     * @param screenWidth Largeur de l'écran pour limiter le mouvement de la balle.
+     * @param screenHeight Hauteur de l'écran pour limiter le mouvement de la balle.
      */
     Ball(int screenWidth, int screenHeight);
 
     /**
-     * @brief Moves the ball based on time elapsed.
+     * @brief Déplace la balle en fonction du temps écoulé.
      *
-     * @param deltaTime Time elapsed since the last frame.
+     * @param deltaTime Temps écoulé depuis la dernière frame.
      */
     void move(float deltaTime);
 
     /**
-     * @brief Renders the ball on the screen.
+     * @brief Affiche la balle à l'écran.
      *
-     * @param renderer SDL Renderer to draw the ball.
+     * @param renderer Renderer SDL pour dessiner la balle.
      */
     void render(SDL_Renderer *renderer) const;
 
     /**
-     * @brief Checks and handles collision with the platform.
+     * @brief Vérifie et gère la collision avec la plateforme.
      *
-     * @param platformRect SDL_Rect representing the platform.
+     * @param platformRect SDL_Rect représentant la plateforme.
      */
     void checkCollisionWithPlatform(const SDL_Rect &platformRect);
 
     /**
-     * @brief Checks and handles collision with bricks.
+     * @brief Vérifie et gère la collision avec les briques.
      *
-     * @param bricks Vector of bricks to check collisions against.
+     * @param bricks Vecteur de briques pour vérifier les collisions.
      */
     void checkCollisionWithBricks(std::vector<Brick> &bricks);
 
     /**
-     * @brief Get the Y position of the ball.
+     * @brief Obtient la position Y de la balle.
      *
-     * @return float Y coordinate of the ball.
+     * @return float Coordonnée Y de la balle.
      */
     float getY() const;
 
     /**
-     * @brief Get the radius of the ball.
+     * @brief Obtient le rayon de la balle.
      *
-     * @return int Radius of the ball.
+     * @return int Rayon de la balle.
      */
     int getRadius() const;
 

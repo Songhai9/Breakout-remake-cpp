@@ -45,6 +45,11 @@ void Ball::checkCollisionWithPlatform(const SDL_Rect &platformRect)
     }
 }
 
+/**
+ * Vérifie les collisions de la balle avec les briques.
+ * 
+ * @param bricks Le vecteur contenant les briques.
+ */
 void Ball::checkCollisionWithBricks(std::vector<Brick> &bricks)
 {
     for (auto &brick : bricks)

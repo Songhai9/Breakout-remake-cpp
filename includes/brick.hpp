@@ -5,90 +5,90 @@
 
 /**
  * @class Brick
- * @brief Represents a brick in the game, handling its rendering and state.
+ * @brief Représente une brique dans le jeu, gérant son rendu et son état.
  */
 class Brick
 {
 public:
     /**
-     * @brief Construct a new Brick object.
+     * @brief Construit un nouvel objet Brick.
      *
-     * @param x X position of the brick.
-     * @param y Y position of the brick.
-     * @param width Width of the brick.
-     * @param height Height of the brick.
-     * @param hitPoints Number of hits the brick can take before being destroyed.
+     * @param x Position X de la brique.
+     * @param y Position Y de la brique.
+     * @param width Largeur de la brique.
+     * @param height Hauteur de la brique.
+     * @param hitPoints Nombre de coups que la brique peut encaisser avant d'être détruite.
      */
     Brick(int x, int y, int width, int height, int hitPoints);
 
     /**
-     * @brief Renders the brick on the screen.
+     * @brief Affiche la brique à l'écran.
      *
-     * @param renderer SDL Renderer to draw the brick.
+     * @param renderer Renderer SDL pour dessiner la brique.
      */
     void render(SDL_Renderer *renderer) const;
 
     /**
-     * @brief Renders the brick with a hexagonal shape.
+     * @brief Affiche la brique avec une forme hexagonale.
      *
-     * @param renderer SDL Renderer to draw the brick.
+     * @param renderer Renderer SDL pour dessiner la brique.
      */
     void renderHexagonal(SDL_Renderer *renderer) const;
 
     /**
-     * @brief Renders the brick with a triangular shape.
+     * @brief Affiche la brique avec une forme triangulaire.
      *
-     * @param renderer SDL Renderer to draw the brick.
+     * @param renderer Renderer SDL pour dessiner la brique.
      */
     void renderTriangular(SDL_Renderer *renderer) const;
 
     /**
-     * @brief Records a hit to the brick, reducing its hit points and possibly marking it as destroyed.
+     * @brief Enregistre un coup sur la brique, réduisant ses points de vie et la marquant éventuellement comme détruite.
      */
     void hit();
 
     /**
-     * @brief Checks if the brick is destroyed.
+     * @brief Vérifie si la brique est détruite.
      *
-     * @return true If the brick is destroyed.
-     * @return false Otherwise.
+     * @return true Si la brique est détruite.
+     * @return false Sinon.
      */
     bool isDestroyed() const;
 
     /**
-     * @brief Checks if the brick has been hit.
+     * @brief Vérifie si la brique a été touchée.
      *
-     * @return true If the brick was hit.
-     * @return false Otherwise.
+     * @return true Si la brique a été touchée.
+     * @return false Sinon.
      */
     bool isHit() const;
 
     /**
-     * @brief Checks if the brick was just destroyed in the last update.
+     * @brief Vérifie si la brique vient d'être détruite lors de la dernière mise à jour.
      *
-     * @return true If the brick was just destroyed.
-     * @return false Otherwise.
+     * @return true Si la brique vient d'être détruite.
+     * @return false Sinon.
      */
     bool wasJustDestroyed();
 
     /**
-     * @brief Resets the hit flag after handling the brick hit state.
+     * @brief Réinitialise le drapeau de coup après avoir géré l'état de la brique touchée.
      */
     void resetHitFlag();
 
     /**
-     * @brief Get the rectangle representing the brick's position and dimensions.
+     * @brief Obtient le rectangle représentant la position et les dimensions de la brique.
      *
-     * @return SDL_Rect The rectangle of the brick.
+     * @return SDL_Rect Le rectangle de la brique.
      */
     SDL_Rect getRect() const;
 
 private:
-    SDL_Color getColor() const; ///< Helper function to determine the color based on hit points.
-    SDL_Rect rect;              ///< SDL rectangle defining the brick's position and size.
-    int hitPoints;              ///< Remaining hit points of the brick.
-    bool hitFlag;               ///< Flag indicating if the brick was hit in the current frame.
-    bool destroyedFlag;         ///< Flag indicating if the brick is destroyed.
+    SDL_Color getColor() const; ///< Fonction d'aide pour déterminer la couleur en fonction des points de vie.
+    SDL_Rect rect;              ///< Rectangle SDL définissant la position et la taille de la brique.
+    int hitPoints;              ///< Points de vie restants de la brique.
+    bool hitFlag;               ///< Drapeau indiquant si la brique a été touchée lors de la frame actuelle.
+    bool destroyedFlag;         ///< Drapeau indiquant si la brique est détruite.
 };
 
 #endif

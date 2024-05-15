@@ -5,71 +5,71 @@
 
 /**
  * @class Bonus
- * @brief Represents a bonus item that can be collected during the game.
+ * @brief Représente un bonus qui peut être collecté pendant le jeu.
  */
 class Bonus
 {
 public:
     /**
      * @enum Type
-     * @brief Types of bonuses that can affect gameplay.
+     * @brief Types de bonus qui peuvent affecter le gameplay.
      */
     enum Type
     {
-        EXTRA_LIFE,    ///< Grants an extra life.
-        MULTI_BALL,    ///< Adds additional balls to the game.
-        SMALL_PLATFORM ///< Reduces the platform size temporarily.
+        EXTRA_LIFE,    ///< Accorde une vie supplémentaire.
+        MULTI_BALL,    ///< Ajoute des balles supplémentaires au jeu.
+        SMALL_PLATFORM ///< Réduit temporairement la taille de la plateforme.
     };
 
     /**
-     * @brief Construct a new Bonus object.
+     * @brief Construit un nouvel objet Bonus.
      *
-     * @param x X position of the bonus.
-     * @param y Y position of the bonus.
-     * @param type Type of the bonus.
+     * @param x Position X du bonus.
+     * @param y Position Y du bonus.
+     * @param type Type du bonus.
      */
     Bonus(int x, int y, Type type);
 
     /**
-     * @brief Moves the bonus downwards.
+     * @brief Déplace le bonus vers le bas.
      *
-     * @param deltaTime Time elapsed since the last frame.
+     * @param deltaTime Temps écoulé depuis la dernière frame.
      */
     void move(float deltaTime);
 
     /**
-     * @brief Renders the bonus on the screen.
+     * @brief Affiche le bonus à l'écran.
      *
-     * @param renderer SDL Renderer to draw the bonus.
+     * @param renderer Renderer SDL pour dessiner le bonus.
      */
     void render(SDL_Renderer *renderer) const;
 
     /**
-     * @brief Checks if the bonus has moved off the screen.
+     * @brief Vérifie si le bonus est sorti de l'écran.
      *
-     * @return true If the bonus is off the screen.
-     * @return false Otherwise.
+     * @return true Si le bonus est sorti de l'écran.
+     * @return false Sinon.
      */
     bool isOffScreen() const;
 
     /**
-     * @brief Get the SDL_Rect representing the bonus.
+     * @brief Obtient le SDL_Rect représentant le bonus.
      *
-     * @return SDL_Rect Rectangle of the bonus.
+     * @return SDL_Rect Rectangle du bonus.
      */
     SDL_Rect getRect() const;
 
     /**
-     * @brief Get the Type of the bonus.
+     * @brief Obtient le type du bonus.
      *
-     * @return Type Type of the bonus.
+     * @return Type Type du bonus.
      */
     Type getType() const;
 
     /**
-     * @brief Get the Size of the bonus.
+     * @brief Obtient la taille du bonus.
      *
-     * @return int Size of the bonus.
+     * @return int Taille du bonus.
      */
     static int getSize();
 

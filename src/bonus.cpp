@@ -10,6 +10,14 @@ void Bonus::move(float deltaTime)
     rect.y += BONUS_VEL * deltaTime;
 }
 
+/**
+ * @brief Rendu du bonus sur le rendu SDL.
+ * 
+ * Cette fonction est utilisée pour afficher le bonus sur le rendu SDL en utilisant le rendu spécifié.
+ * La couleur du bonus est déterminée par son type.
+ * 
+ * @param renderer Le pointeur vers le rendu SDL.
+ */
 void Bonus::render(SDL_Renderer *renderer) const
 {
     switch (type)

@@ -5,6 +5,15 @@ Platform::Platform(int screen_width, int screen_height)
 {
 }
 
+/**
+ * @brief Gère les événements liés à la plateforme.
+ * 
+ * Cette fonction est appelée pour traiter les événements SDL liés à la plateforme.
+ * Elle met à jour la vitesse de déplacement de la plateforme en fonction des touches
+ * fléchées gauche et droite enfoncées ou relâchées.
+ * 
+ * @param e L'événement SDL à traiter.
+ */
 void Platform::handleEvent(const SDL_Event &e)
 {
     if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
