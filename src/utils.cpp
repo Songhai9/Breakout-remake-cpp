@@ -21,32 +21,35 @@ void DrawCircle(SDL_Renderer *renderer, int x, int y, int radius)
 
 bool checkCollision(const SDL_Rect &a, const SDL_Rect &b)
 {
-    if (a.x + a.w < b.x || a.x > b.x + b.w)
-        return false;
-    if (a.y + a.h < b.y || a.y > b.y + b.h)
-        return false;
-    return true;
+    return !(a.x + a.w < b.x || a.x > b.x + b.w || a.y + a.h < b.y || a.y > b.y + b.h);
 }
 
-void fillPolygon(SDL_Renderer* renderer, const std::vector<SDL_Point>& points) {
-    if (points.size() < 3) return;
+void fillPolygon(SDL_Renderer *renderer, const std::vector<SDL_Point> &points)
+{
+    if (points.size() < 3)
+        return; // Not enough points to form a polygon.
 
-    auto [minY, maxY] = std::minmax_element(points.begin(), points.end(), [](const SDL_Point& a, const SDL_Point& b) {
-        return a.y < b.y;
-    });
+    // Find the vertical bounds of the polygon.
+    auto [minY, maxY] = std::minmax_element(points.begin(), points.end(), [](const SDL_Point &a, const SDL_Point &b)
+                                            { return a.y < b.y; });
 
-    for (int y = minY->y; y <= maxY->y; ++y) {
+    for (int y = minY->y; y <= maxY->y; ++y)
+    {
         std::vector<int> nodeX;
         size_t j = points.size() - 1;
-        for (size_t i = 0; i < points.size(); ++i) {
-            if ((points[i].y < y && points[j].y >= y) || (points[j].y < y && points[i].y >= y)) {
+        for (size_t i = 0; i < points.size(); ++i)
+        {
+            if ((points[i].y < y && points[j].y >= y) || (points[j].y < y && points[i].y >= y))
+            {
                 nodeX.push_back(points[i].x + (y - points[i].y) * (points[j].x - points[i].x) / (points[j].y - points[i].y));
             }
             j = i;
         }
         std::sort(nodeX.begin(), nodeX.end());
-        for (size_t i = 0; i < nodeX.size(); i += 2) {
-            if (i + 1 < nodeX.size()) {
+        for (size_t i = 0; i < nodeX.size(); i += 2)
+        {
+            if (i + 1 < nodeX.size())
+            {
                 SDL_RenderDrawLine(renderer, nodeX[i], y, nodeX[i + 1], y);
             }
         }

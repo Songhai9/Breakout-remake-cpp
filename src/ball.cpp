@@ -15,7 +15,8 @@ void Ball::move(float deltaTime)
     x += dx * deltaTime;
     y += dy * deltaTime;
 
-    if (x - radius < 0 || x + radius > screenWidth) {
+    if (x - radius < 0 || x + radius > screenWidth)
+    {
         dx = -dx;
     }
 

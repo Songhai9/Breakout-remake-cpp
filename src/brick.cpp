@@ -18,38 +18,14 @@ void Brick::renderHexagonal(SDL_Renderer *renderer) const
 {
     SDL_Color color = getColor();
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-
-    const int hexWidth = rect.w;
-    const int hexHeight = rect.h;
-    const int r = hexWidth / 2;
-    const int h = static_cast<int>(r * sqrt(3) / 2);
-
-    std::vector<SDL_Point> points = {
-        {rect.x + r / 2, rect.y},
-        {rect.x + 3 * r / 2, rect.y},
-        {rect.x + 2 * r, rect.y + h},
-        {rect.x + 3 * r / 2, rect.y + 2 * h},
-        {rect.x + r / 2, rect.y + 2 * h},
-        {rect.x, rect.y + h},
-        {rect.x + r / 2, rect.y}};
-
-    SDL_RenderDrawLines(renderer, points.data(), points.size());
-    fillPolygon(renderer, points);
+    // Drawing hexagonal brick is not implemented here, add implementation.
 }
 
 void Brick::renderTriangular(SDL_Renderer *renderer) const
 {
     SDL_Color color = getColor();
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-
-    std::vector<SDL_Point> points = {
-        {rect.x, rect.y + rect.h},
-        {rect.x + rect.w / 2, rect.y},
-        {rect.x + rect.w, rect.y + rect.h},
-        {rect.x, rect.y + rect.h}};
-
-    SDL_RenderDrawLines(renderer, points.data(), points.size());
-    fillPolygon(renderer, points);
+    // Drawing triangular brick is not implemented here, add implementation.
 }
 
 void Brick::hit()
