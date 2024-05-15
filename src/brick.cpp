@@ -27,7 +27,6 @@ void Brick::renderHexagonal(SDL_Renderer *renderer) const
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 
     const int hexWidth = rect.w;
-    const int hexHeight = rect.h;
     const int r = hexWidth / 2;
     const int h = static_cast<int>(r * sqrt(3) / 2); 
 
